@@ -6,14 +6,11 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:01:12 by marvin            #+#    #+#              #
-#    Updated: 2024/05/01 21:13:34 by marvin           ###   ########.fr        #
+#    Updated: 2024/06/04 21:25:30 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include build.mk
-
-#❖═════Arguments══════❖
-ARGS		= 
 
 #❖═════Commandes══════❖
 all : $(NAME)
@@ -49,6 +46,28 @@ check :
 	funcheck -o ./$(NAME) $(ARGS)
 	@echo ""
 
+#❖═══Dependencies═══❖
+dependencies: $(BUILD_INCLUDES)
+	@mkdir -p $(LIBS_DIR)
+	@for dep in $(DEPENDENCIES); do \
+		name=$$(echo $$dep | cut -d ':' -f 1); \
+		url=$$(echo $$dep | awk -F':' '{print substr($$0, index($$0, ":") + 1)}'); \
+		if [ ! -d $(LIBS_DIR)/$$name ]; then \
+			echo "Cloning $$name..."; \
+			git clone $$url $(LIBS_DIR)/$$name; \
+		else \
+			echo "Pulling $$name..."; \
+			(cd $(LIBS_DIR)/$$name && git pull -f); \
+		fi; \
+	done
+	@$(eval LIBRARYS += $(foreach dep,$(DEPENDENCIES),$(LIBS_DIR)/$(firstword $(subst :, ,$(dep)))/$(BUILD_DIR)/$(firstword $(subst :, ,$(dep))).a))
+	@$(eval LIBS_OBJ += $(foreach dep,$(DEPENDENCIES),$(LIBS_DIR)/$(firstword $(subst :, ,$(dep)))/$(BUILD_DIR)/obj))
+	@$(eval LIBS_INCLUDES += $(foreach dep,$(DEPENDENCIES),$(LIBS_DIR)/$(firstword $(subst :, ,$(dep)))/$(BUILD_DIR)/includes))
+	@$(eval LIBS_HEADER += $(foreach dep,$(DEPENDENCIES),$(LIBS_DIR)/$(firstword $(subst :, ,$(dep)))/$(BUILD_DIR)/includes/$(firstword $(subst :, ,$(dep))).h))
+	@$(eval ALL_L_INCLUDES += $(foreach dep,$(DEPENDENCIES),$(LIBS_DIR)/$(firstword $(subst :, ,$(dep)))/$(BUILD_DIR)/includes/$(firstword $(subst :, ,$(dep)))))
+	@cp $(LIBS_HEADER) $(BUILD_INCLUDES)
+	@cp -r $(ALL_L_INCLUDES) $(BUILD_INCLUDES)
+
 re: fclean all clear 
 
-.PHONY: all clean fclean re val dependencies
+.PHONY: all start clean fclean re val dependencies check
