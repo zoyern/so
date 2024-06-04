@@ -12,9 +12,34 @@
 
 #include "exemple.h"
 
+int	start(t_so *so, void *env)
+{
+	t_data *data = (t_data *)env;
+	so->print("Start loop ----value : %d-----\n", data->value);
+	data->value = 1;
+	return (0);
+}
+
+int	update(t_so *so, void *env)
+{
+	t_data	*data = (t_data *)env;
+	so->print("Start Update ----value : %d-----\n", data->value);
+	data->value = 2;
+	return (0);
+}
+
+int	quit(t_so *so, void *env)
+{
+	t_data	*data = (t_data *)env;
+	so->print("Start Quit ----value : %d-----\n", data->value);
+	data->value = 3;
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_solib		*solib;
+	t_solib	*solib;
+	t_data	*data;
 
 	solib = so(sonew_types(argc, argv, envp));
 	if (!solib)
@@ -24,7 +49,10 @@ int	main(int argc, char **argv, char **envp)
 	solib->print("║             ║\n");
 	solib->print("║ loading :✅ ║\n");
 	solib->print("╚══❖═══════❖══╝\n");
-	if (solib->so->start(solib))
+	data = solib->malloc(solib, sizeof(t_data));
+	data->value = 0;
+	if (solib->so->start(solib, data, solib->so->init(solib,
+		 start, update, quit)))
 		return (solib->close(solib, EXIT_FAILURE));
 	return (solib->close(solib, EXIT_SUCCESS));
 }

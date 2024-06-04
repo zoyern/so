@@ -15,8 +15,14 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <mlx.h>
 # include <sotypes.h>
 # include <solibft.h>
 # include <so.h>
+
+typedef struct s_data
+{
+	int	value;
+}	t_data;
 
 #endif

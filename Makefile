@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:01:12 by marvin            #+#    #+#              #
-#    Updated: 2024/06/04 21:25:30 by marvin           ###   ########.fr        #
+#    Updated: 2024/06/04 23:15:38 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,12 @@ check :
 	@clear
 	funcheck -o ./$(NAME) $(ARGS)
 	@echo ""
+
+MLX_GIT = https://github.com/42Paris/minilibx-linux.git;
+
+mlx :
+	@git clone https://github.com/42Paris/minilibx-linux.git
+	@make -C ./minilibx-linux
 
 #❖═══Dependencies═══❖
 dependencies: $(BUILD_INCLUDES)

@@ -19,6 +19,7 @@ NAME		= so
 #❖═══Compilation════❖
 CC			= cc
 CFLAG		= -Wall -Wextra -Werror -I./$(BUILD_INCLUDES) -g3 -gdwarf-4
+LDFLAGS 	= -L/minilibx-linux -lXext -lX11
 AR			= ar rc
 LIB			= ranlib
 
@@ -56,7 +57,7 @@ $(BUILD_OBJ)/%.o: $(SRC_DIR)/%.c | $(BUILD_INCLUDES)
 $(NAME): $(DEPENDENCIES_RULES) $(OBJ)
 	${AR} $(LIBRARY) ${OBJ} $(LIBRARYS)
 	${LIB} $(LIBRARY)
-	$(CC) $(SRC_EXEMPLE) $(OBJ) -o $(NAME) $(CFLAG) $(LIBRARYS) $(LIBRARY) $(LDFLAGS)
+	$(CC) $(SRC_EXEMPLE) $(OBJ) -o $(NAME) $(CFLAG) $(LIBRARYS) minilibx-linux/libmlx.a $(LIBRARY) $(LDFLAGS)
 
 $(BUILD_INCLUDES):
 	mkdir -p $(BUILD_DIR);
@@ -64,3 +65,4 @@ $(BUILD_INCLUDES):
 	mkdir -p $(ALL_B_INCLUDES)
 	cp $(LIB_HEADER) $(BUILD_INCLUDES)
 	cp $(HEADERS) $(ALL_B_INCLUDES)
+	cp minilibx-linux/mlx.h $(BUILD_INCLUDES)
