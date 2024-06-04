@@ -4,6 +4,9 @@
 		"cstdlib": "c",
 		"so_t.h": "c",
 		"unistd.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"all.h": "c",
+		"solibft.h": "c",
+		"solibft_t.h": "c"
 	}
 }
