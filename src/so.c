@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <so/all.h>
+#include <solibft.h>
 
 int		so_start(t_solib *solib)
 {
