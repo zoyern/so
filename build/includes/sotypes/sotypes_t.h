@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sotypes_t.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: almounib <almounib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:27:45 by marvin            #+#    #+#             */
-/*   Updated: 2024/05/16 14:39:33 by almounib         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:51:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_somemory		t_somemory;
 typedef struct s_somemdata		t_somemdata;
 typedef struct s_sofuncs		t_sofuncs;
 typedef struct s_solibft		t_solibft;
+typedef struct s_so				t_so;
 
 typedef struct s_somemdata {
 	void		*ptr;
@@ -56,6 +57,7 @@ typedef struct s_solib
 	int			(*free)(t_solib *solib, void *ptr);
 	int			(*print)(const char *str, ...);
 	t_solibft	*libft;
+	t_so		*so;
 }	t_solib;
 
 #endif

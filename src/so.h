@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exemple.h                                          :+:      :+:    :+:   */
+/*   so.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: almounib <almounib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 21:27:45 by marvin            #+#    #+#             */
-/*   Updated: 2024/05/16 14:43:35 by almounib         ###   ########.fr       */
+/*   Created: 2024/02/08 17:59:30 by marvin            #+#    #+#             */
+/*   Updated: 2024/05/16 14:39:01 by almounib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEMPLE_H
-# define EXEMPLE_H
+#ifndef SO_H
+# define SO_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <sotypes.h>
-# include <solibft.h>
-# include <so.h>
+# include <so/so_t.h>
+
+t_solib	*so(t_solib *solib);
 
 #endif

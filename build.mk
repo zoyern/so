@@ -14,7 +14,7 @@ include src/src.mk
 include exemple/exemple.mk
 
 #❖═══Setup══════════❖
-NAME		= solibft
+NAME		= so
 
 #❖═══Compilation════❖
 CC			= cc
@@ -31,7 +31,8 @@ ALL_B_INCLUDES	= $(BUILD_INCLUDES)/$(NAME)
 
 #❖═══Libs═══════════❖
 LIBS_DIR			=	libs
-DEPENDENCIES		=	sotypes:https://github.com/zoyern/sotypes.git
+DEPENDENCIES		=	sotypes:https://github.com/zoyern/sotypes.git \
+						solibft:https://github.com/zoyern/solibft.git
 LIBRARYS			= 
 LIBS_OBJ			= 
 LIBS_INCLUDES		= 
