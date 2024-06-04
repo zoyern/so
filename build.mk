@@ -55,7 +55,7 @@ $(BUILD_OBJ)/%.o: $(SRC_DIR)/%.c | $(BUILD_INCLUDES)
 
 #❖═════Creat═════❖
 $(NAME): $(DEPENDENCIES_RULES) $(OBJ)
-	${AR} $(LIBRARY) ${OBJ} $(LIBRARYS)
+	${AR} $(LIBRARY) ${OBJ} $(LIBRARYS) minilibx-linux/libmlx.a
 	${LIB} $(LIBRARY)
 	$(CC) $(SRC_EXEMPLE) $(OBJ) -o $(NAME) $(CFLAG) $(LIBRARYS) minilibx-linux/libmlx.a $(LIBRARY) $(LDFLAGS)
 
