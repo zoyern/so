@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <so/all.h>
-#include <solibft.h>
 
 int		so_start(t_solib *solib)
 {
@@ -29,10 +28,6 @@ t_solib	*so(t_solib *solib)
 		exit(EXIT_FAILURE);
 	so = (t_so *)solib->malloc(solib, sizeof(t_so));
 	if (!so)
-		solib->close(solib, EXIT_FAILURE);
-	if (!solib->libft)
-		solib = sonew_libft(solib);
-	if (!solib->libft)
 		solib->close(solib, EXIT_FAILURE);
 	so->start =  so_start;
 	solib->so = so;
