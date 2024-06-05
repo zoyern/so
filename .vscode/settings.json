@@ -7,6 +7,9 @@
 		"stdlib.h": "c",
 		"all.h": "c",
 		"solibft.h": "c",
-		"solibft_t.h": "c"
+		"solibft_t.h": "c",
+		"sotypes.h": "c",
+		"hooks.h": "c",
+		"windows.h": "c"
 	}
 }
