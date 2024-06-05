@@ -12,25 +12,25 @@
 
 #include "exemple.h"
 
-int	start(t_so *so, void *env)
+int	start(t_so *so, t_data *data)
 {
-	t_data *data = (t_data *)env;
 	so->print("Start loop ----value : %d-----\n", data->value);
+	so->name = "solong";
+	so->width = 800;
+	so->height = 500;
 	data->value = 1;
 	return (0);
 }
 
-int	update(t_so *so, void *env)
+int	update(t_so *so, t_data *data)
 {
-	t_data	*data = (t_data *)env;
 	so->print("Start Update ----value : %d-----\n", data->value);
 	data->value = 2;
 	return (0);
 }
 
-int	quit(t_so *so, void *env)
+int	quit(t_so *so, t_data *data)
 {
-	t_data	*data = (t_data *)env;
 	so->print("Start Quit ----value : %d-----\n", data->value);
 	data->value = 3;
 	return (0);

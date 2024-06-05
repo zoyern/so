@@ -15,5 +15,8 @@
 
 # include <so/so_t.h>
 # include <so.h>
+# include <so/gears.h>
+# include <so/hooks.h>
+# include <so/windows.h>
 
 #endif

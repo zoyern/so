@@ -10,17 +10,27 @@
 #                                                                              #
 # **************************************************************************** #
 
+include src/gears/gears.mk
+include src/hooks/hooks.mk
+include src/windows/windows.mk
+
 SRC_DIR		=	$(CURDIR)/src
 
 LIB_HEADER	=	$(addprefix $(SRC_DIR)/, so.h)
 SRC_HEADER	=	so_t.h all.h
 SRC_FILES	=	so.c
 
-DIR			+= $(SOEXEC_DIR)
+DIR			+= $(GEARS_DIR)
+DIR			+= $(HOOKS_DIR)
+DIR			+= $(WINDOWS_DIR)
 
-SRC_HEADER	+= $(SOEXEC_HEAD)
+SRC_HEADER			+= $(GEARS_HEAD)
+SRC_HEADER	+= $(HOOKS_HEAD)
+SRC_HEADER	+= $(WINDOWS_HEAD)
 
-SRC_FILES	+= $(SOEXEC)
+SRC_FILES	+= $(GEARS)
+SRC_FILES	+= $(HOOKS)
+SRC_FILES	+= $(WINDOWS)
 
 HEADERS		=	$(addprefix $(SRC_DIR)/, $(SRC_HEADER))
 SRC			=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))

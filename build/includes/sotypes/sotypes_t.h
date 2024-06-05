@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:27:45 by marvin            #+#    #+#             */
-/*   Updated: 2024/06/04 16:51:27 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/05 17:46:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# define TRUE 1
+# define FALSE 0
 
 typedef struct s_solib			t_solib;
 typedef struct s_somemory		t_somemory;

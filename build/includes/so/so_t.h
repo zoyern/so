@@ -22,24 +22,45 @@
 
 typedef struct s_so			t_so;
 typedef struct s_sofuncs	t_sofuncs;
+typedef struct s_sokeys		t_sokeys;
+typedef struct s_sovec2		t_sovec2;
 
+typedef struct s_sovec2 {
+	float	x;
+	float	y;
+}	t_sovec2;
+
+typedef struct s_sokeys
+{
+	t_sovec2	*mouse;
+	int			keys[256];
+}	t_sokeys;
 
 typedef struct s_sofuncs
 {
-	int	(*sostart)(t_so *so, void *data);
-	int	(*soupdate)(t_so *so, void *data);
-	int	(*soquit)(t_so *so, void *data);
+	int	(*sostart)();
+	int	(*soupdate)();
+	int	(*soquit)();
 }	t_sofuncs;
 
 typedef struct s_so
 {
 	t_solib		*solib;
+	t_solibft	*libft;
+	t_sokeys	*inputs;
+	t_sofuncs	*funcs;
 	void		*mlx;
-	void		*display;
+	void		*window;
+	void		*data;
+	char		*name;
+	int			width;
+	int			height;
 	int			(*print)(const char *str, ...);
+	void		*(*malloc)(t_solib *solib, size_t size);
+	int			(*free)(t_solib *solib, void *ptr);
 	int			(*start)(t_solib *solib, void *data, t_sofuncs *funcs);
 	int			(*close)(t_so *so, int state);
-	t_sofuncs	*(*init)(t_solib *solib, int (*start)(t_so *so, void *data), int (*update)(t_so *so, void *data), int (*quit)(t_so *so, void *data));
+	t_sofuncs	*(*init)(t_solib *solib, int (*start)(), int (*update)(), int (*quit)());
 	
 }	t_so;
 

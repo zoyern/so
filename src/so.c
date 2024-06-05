@@ -12,45 +12,47 @@
 
 #include <so/all.h>
 
-int so_close(t_so *so, int state)
+int		so_quit(t_so *so)
 {
-	if (so)
-	{
-		if (so->display)
-			mlx_destroy_window(so->mlx, so->display);
-		if (so->mlx)
-		{
-			mlx_destroy_display(so->mlx);
-			free(so->mlx);
-		}
-		free(so);
-	}
-	if (state)
-		exit(EXIT_FAILURE);
-	return(state);
+	so->print("%C42bf79(------%C30c734(STARTING)------)\n");
+	if (so->funcs->soquit)
+		so->funcs->soquit(so, so->data);
+	return (0);
+}
+
+int		so_update(t_so *so)
+{
+	so->print("%C42bf79(------%C30c734(UPDATE)------)\n");
+	if (so->funcs->soupdate)
+		so->funcs->soupdate(so, so->data);
+	return (0);
 }
 
 int		so_start(t_solib *solib, void *data, t_sofuncs *funcs)
 {
-	solib->print("%C42bf79(------%C30c734(STARTING)------)\n");
+	solib->print("%C42bf79(------%C30c734(QUIT)------)\n");
+	solib->so->funcs = funcs;
+	solib->so->data = data;
+	solib->so->mlx = mlx_init();
+	if (!solib->so->mlx)
+		return (1);
 	if (funcs->sostart)
-		funcs->sostart(solib->so, (void *)data);
-	if (funcs->soupdate)
-		funcs->soupdate(solib->so, (void *)data);
-	if (funcs->soquit)
-		funcs->soquit(solib->so, (void *)data);
+		funcs->sostart(solib->so, data);
+	if (so_init_windows(solib->so))
+		return (1);
+	so_hooks(solib->so);
+	mlx_loop_hook(solib->so->mlx, so_update, solib->so);
+	mlx_loop(solib->so->mlx);
 	return (0);
 }
 
-t_sofuncs	*sonew_sofuncs(t_solib *solib, int (*start)(t_so *so, void *data), int (*update)(t_so *so, void *data), int (*quit)(t_so *so, void *data))
+void	so_init(t_so *so)
 {
-	t_sofuncs	*funcs;
-
-	funcs = solib->malloc(solib, sizeof(t_sofuncs));
-	funcs->sostart = start;
-	funcs->soupdate = update;
-	funcs->soquit = quit;
-	return (funcs);
+	so->width = 0;
+	so->height = 0;
+	so->start =  so_start;
+	so->close =  so_close;
+	so->init =  sonew_sofuncs;
 }
 
 t_solib	*so(t_solib *solib)
@@ -68,10 +70,13 @@ t_solib	*so(t_solib *solib)
 	so = (t_so *)solib->malloc(solib, sizeof(t_so));
 	if (!so)
 		solib->close(solib, EXIT_FAILURE);
+	so_init(so);
+	so->libft =  solib->libft;
 	so->print =  solib->print;
-	so->start =  so_start;
-	so->close =  so_close;
-	so->init =  sonew_sofuncs;
+	so->malloc =  solib->malloc;
+	so->free =  solib->free;
+	so->inputs = so_new_keys(solib);
 	solib->so = so;
+	solib->so->solib = solib;
 	return (solib);
 }
