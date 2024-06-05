@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:01:12 by marvin            #+#    #+#              #
-#    Updated: 2024/06/04 23:15:38 by marvin           ###   ########.fr        #
+#    Updated: 2024/06/05 13:58:34 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ clean : clear
 
 fclean : clean
 	@rm -f $(NAME)
+	@rm -rf libs
 	@echo "Clean   : ./$(NAME)"
 
 
@@ -74,6 +75,6 @@ dependencies: $(BUILD_INCLUDES)
 	@cp $(LIBS_HEADER) $(BUILD_INCLUDES)
 	@cp -r $(ALL_L_INCLUDES) $(BUILD_INCLUDES)
 
-re: fclean all clear 
+re: clean all clear 
 
 .PHONY: all start clean fclean re val dependencies check
