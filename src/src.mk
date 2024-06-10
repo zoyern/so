@@ -13,6 +13,7 @@
 include src/gears/gears.mk
 include src/hooks/hooks.mk
 include src/windows/windows.mk
+include src/render/render.mk
 
 SRC_DIR		=	$(CURDIR)/src
 
@@ -23,14 +24,17 @@ SRC_FILES	=	so.c
 DIR			+= $(GEARS_DIR)
 DIR			+= $(HOOKS_DIR)
 DIR			+= $(WINDOWS_DIR)
+DIR			+= $(RENDER_DIR)
 
-SRC_HEADER			+= $(GEARS_HEAD)
+SRC_HEADER	+= $(GEARS_HEAD)
 SRC_HEADER	+= $(HOOKS_HEAD)
 SRC_HEADER	+= $(WINDOWS_HEAD)
+SRC_HEADER	+= $(RENDER_HEAD)
 
 SRC_FILES	+= $(GEARS)
 SRC_FILES	+= $(HOOKS)
 SRC_FILES	+= $(WINDOWS)
+SRC_FILES	+= $(RENDER)
 
 HEADERS		=	$(addprefix $(SRC_DIR)/, $(SRC_HEADER))
 SRC			=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))

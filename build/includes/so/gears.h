@@ -16,6 +16,7 @@
 # include <so/all.h>
 
 int 		so_close(t_so *so, int state);
+int			 so_close_update(t_so *so, int state);
 t_sofuncs	*sonew_sofuncs(t_solib *solib, int (*start)(), int (*update)(), int (*quit)());
 
 #endif

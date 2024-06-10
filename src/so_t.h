@@ -34,6 +34,7 @@ typedef struct s_sokeys
 {
 	t_sovec2	*mouse;
 	int			keys[256];
+	int			escape;
 }	t_sokeys;
 
 typedef struct s_sofuncs
@@ -45,6 +46,7 @@ typedef struct s_sofuncs
 
 typedef struct s_so
 {
+	int			loop;
 	t_solib		*solib;
 	t_solibft	*libft;
 	t_sokeys	*inputs;
@@ -60,7 +62,7 @@ typedef struct s_so
 	int			(*free)(t_solib *solib, void *ptr);
 	int			(*start)(t_solib *solib, void *data, t_sofuncs *funcs);
 	int			(*close)(t_so *so, int state);
-	t_sofuncs	*(*init)(t_solib *solib, int (*start)(), int (*update)(), int (*quit)());
+	t_sofuncs	*(*sofuncs)(t_solib *solib, int (*start)(), int (*update)(), int (*quit)());
 	
 }	t_so;
 

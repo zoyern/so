@@ -12,7 +12,7 @@
 
 #include <so/all.h>
 
-int so_close(t_so *so, int state)
+int so_close_update(t_so *so, int state)
 {
 	if (so)
 	{
@@ -20,14 +20,28 @@ int so_close(t_so *so, int state)
 			mlx_destroy_window(so->mlx, so->window);
 		if (so->mlx)
 		{
+			mlx_loop_end(so->mlx);
 			mlx_destroy_display(so->mlx);
-			free(so->mlx);
+			so->print("mlx ptr : %p\n", so->mlx);
 		}
-		free(so);
+		so->loop = 0;
 	}
 	if (state)
-		exit(EXIT_FAILURE);
-	return(state);
+		so_close(so, state);
+	return (state);
+}
+
+
+int so_close(t_so *so, int state)
+{
+	if (so)
+	{
+		free(so->mlx);
+		so->free(so->solib, so);
+	}
+	if (state)
+		exit(state);
+	return (state);
 }
 
 t_sofuncs	*sonew_sofuncs(t_solib *solib, int (*start)(), int (*update)(), int (*quit)())

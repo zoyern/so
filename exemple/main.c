@@ -14,7 +14,7 @@
 
 int	start(t_so *so, t_data *data)
 {
-	so->print("Start loop ----value : %d-----\n", data->value);
+	so->print("Start ----value : %d-----\n", data->value);
 	so->name = "solong";
 	so->width = 800;
 	so->height = 500;
@@ -24,14 +24,16 @@ int	start(t_so *so, t_data *data)
 
 int	update(t_so *so, t_data *data)
 {
-	so->print("Start Update ----value : %d-----\n", data->value);
+	so->print("Update ----value : %d-----\n", data->value);
+	if (so->inputs->escape)
+		return (so->close(so, EXIT_SUCCESS));
 	data->value = 2;
 	return (0);
 }
 
 int	quit(t_so *so, t_data *data)
 {
-	so->print("Start Quit ----value : %d-----\n", data->value);
+	so->print("Quit ----value : %d-----\n", data->value);
 	data->value = 3;
 	return (0);
 }
@@ -51,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	solib->print("╚══❖═══════❖══╝\n");
 	data = solib->malloc(solib, sizeof(t_data));
 	data->value = 0;
-	if (solib->so->start(solib, data, solib->so->init(solib,
+	if (solib->so->start(solib, data, solib->so->sofuncs(solib,
 		 start, update, quit)))
 		return (solib->close(solib, EXIT_FAILURE));
 	return (solib->close(solib, EXIT_SUCCESS));
