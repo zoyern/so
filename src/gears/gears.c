@@ -22,7 +22,6 @@ int so_close_update(t_so *so, int state)
 		{
 			mlx_loop_end(so->mlx);
 			mlx_destroy_display(so->mlx);
-			so->print("mlx ptr : %p\n", so->mlx);
 		}
 		so->loop = 0;
 	}

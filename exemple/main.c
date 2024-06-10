@@ -14,27 +14,27 @@
 
 int	start(t_so *so, t_data *data)
 {
+	data->value = 1;
 	so->print("Start ----value : %d-----\n", data->value);
 	so->name = "solong";
 	so->width = 800;
 	so->height = 500;
-	data->value = 1;
 	return (0);
 }
 
 int	update(t_so *so, t_data *data)
 {
+	data->value = 2;
 	so->print("Update ----value : %d-----\n", data->value);
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
-	data->value = 2;
 	return (0);
 }
 
 int	quit(t_so *so, t_data *data)
 {
-	so->print("Quit ----value : %d-----\n", data->value);
 	data->value = 3;
+	so->print("Quit ----value : %d-----\n", data->value);
 	return (0);
 }
 
