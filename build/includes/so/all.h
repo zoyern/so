@@ -18,5 +18,7 @@
 # include <so/gears.h>
 # include <so/hooks.h>
 # include <so/windows.h>
+# include <so/render.h>
+# include <so/sprite.h>
 
 #endif

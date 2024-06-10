@@ -27,13 +27,14 @@ int		so_update(t_so *so)
 		so->print("%C42bf79(------%C30c734(UPDATE)------)\n");
 		if (so->funcs->soupdate)
 			so->funcs->soupdate(so, so->data);
+		so_render(so);
 	}
 	return (0);
 }
 
 int		so_start(t_solib *solib, void *data, t_sofuncs *funcs)
 {
-	solib->print("%C42bf79(------%C30c734(QUIT)------)\n");
+	solib->print("%C42bf79(------%C30c734(START)------)\n");
 	solib->so->funcs = funcs;
 	solib->so->data = data;
 	solib->so->mlx = mlx_init();

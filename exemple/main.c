@@ -19,6 +19,7 @@ int	start(t_so *so, t_data *data)
 	so->name = "solong";
 	so->width = 800;
 	so->height = 500;
+
 	return (0);
 }
 
