@@ -14,17 +14,9 @@
 
 int so_close_update(t_so *so, int state)
 {
-	if (so)
-	{
-		if (so->window)
-			mlx_destroy_window(so->mlx, so->window);
-		if (so->mlx)
-		{
-			mlx_loop_end(so->mlx);
-			mlx_destroy_display(so->mlx);
-		}
-		so->loop = 0;
-	}
+	if (so->mlx)
+		mlx_loop_end(so->mlx);
+	so->loop = 0;
 	if (state)
 		so_close(so, state);
 	return (state);
@@ -35,7 +27,14 @@ int so_close(t_so *so, int state)
 {
 	if (so)
 	{
-		free(so->mlx);
+		so->imgmemory->close(so->solib);
+		if (so->window && so->mlx)
+			mlx_destroy_window(so->mlx, so->window);
+		if (so->mlx)
+		{
+			mlx_destroy_display(so->mlx);
+			free(so->mlx);
+		}
 		so->free(so, so);
 	}
 	if (state)

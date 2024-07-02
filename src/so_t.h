@@ -47,8 +47,8 @@ typedef struct s_soconstruct {
 }	t_soconstruct;
 
 typedef struct s_sosprite_data{
-	int				is_image;
-	t_sotransform	*transform;
+	char			*args;
+	t_sosize		*size;
 	char			*adress;
 	void			*ptr;	
 	int				bpp;
@@ -57,7 +57,9 @@ typedef struct s_sosprite_data{
 } t_sosprite_data;
 
 typedef struct s_sosprite{
+	int				is_image;
 	t_soconstruct	*construct;
+	t_sotransform	*transform;
 	t_sovec2		*ratio;
 	t_sosprite_data	*origin;
 	t_sosprite_data	*data;
@@ -70,16 +72,12 @@ typedef struct s_sokeys
 	int			escape;
 }	t_sokeys;
 
-typedef struct s_sonew
-{
-	int	(*sprite)(t_so *so, char *path);
-}	t_sonew;
 
 typedef struct s_sofuncs
 {
-	int	(*sostart)();
-	int	(*soupdate)();
-	int	(*soquit)();
+	int	(*sostart)(t_so *so, void *data);
+	int	(*soupdate)(t_so *so, void *data);
+	int	(*soquit)(t_so *so, void *data);
 }	t_sofuncs;
 
 typedef struct s_so
@@ -89,24 +87,25 @@ typedef struct s_so
 	t_solibft		*libft;
 	t_sokeys		*inputs;
 	t_sofuncs		*funcs;
-	t_sonew			*new;
+	t_somemory		*imgmemory;
+	t_sosprite		*area;
 	void			*mlx;
 	void			*window;
 	void			*data;
 	char			*name;
-	int				width;
-	int				height;
+	t_sosize		*cadre;
 	int				(*print)(const char *str, ...);
 	void			*(*malloc)(t_so *so, size_t size);
 	int				(*free)(t_so *solib, void *ptr);
-	int				(*start)(t_solib *solib, void *data, t_sofuncs *funcs);
+	int				(*start)(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs);
 	int				(*close)(t_so *so, int state);
 	t_sofuncs		*(*sofuncs)(t_solib *solib, int (*start)(), int (*update)(), int (*quit)());
-	t_sosize		*(*size)(t_solib *solib, float width, float height);
-	t_sovec2		*(*vec2)(t_solib *solib, float x, float y);
-	t_sotransform	*(*transform)(t_solib *solib, t_sovec2 *vector2, t_sosize *size);
-	t_soconstruct	*(*construct)(t_solib *solib, char *name, char *args, int enabled);
-	
+	t_sosize		*(*size)(t_so *so, float width, float height);
+	t_sovec2		*(*vec2)(t_so *so, float x, float y);
+	t_sotransform	*(*transform)(t_so *so, t_sovec2 *vector2, t_sosize *size);
+	t_soconstruct	*(*construct)(t_so *so, char *name, char *args, int enabled);
+	t_sosprite		*(*sprite)(t_so *so, t_soconstruct *construct, t_sotransform *transform);
+
 }	t_so;
 
 #endif

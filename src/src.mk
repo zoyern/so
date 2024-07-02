@@ -14,6 +14,7 @@ include src/gears/gears.mk
 include src/hooks/hooks.mk
 include src/windows/windows.mk
 include src/render/render.mk
+include src/soimgmemory/soimgmemory.mk
 include src/sprite/sprite.mk
 
 SRC_DIR		=	$(CURDIR)/src
@@ -26,18 +27,21 @@ DIR			+= $(GEARS_DIR)
 DIR			+= $(HOOKS_DIR)
 DIR			+= $(WINDOWS_DIR)
 DIR			+= $(RENDER_DIR)
+DIR			+= $(SOMEMORY_DIR)
 DIR			+= $(SPRITE_DIR)
 
 SRC_HEADER	+= $(GEARS_HEAD)
 SRC_HEADER	+= $(HOOKS_HEAD)
 SRC_HEADER	+= $(WINDOWS_HEAD)
 SRC_HEADER	+= $(RENDER_HEAD)
+SRC_HEADER	+= $(SOMEMORY_HEAD)
 SRC_HEADER	+= $(SPRITE_HEAD)
 
 SRC_FILES	+= $(GEARS)
 SRC_FILES	+= $(HOOKS)
 SRC_FILES	+= $(WINDOWS)
 SRC_FILES	+= $(RENDER)
+SRC_FILES	+= $(SOMEMORY)
 SRC_FILES	+= $(SPRITE)
 
 HEADERS		=	$(addprefix $(SRC_DIR)/, $(SRC_HEADER))

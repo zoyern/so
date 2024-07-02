@@ -12,6 +12,8 @@
 		"hooks.h": "c",
 		"windows.h": "c",
 		"so.h": "c",
-		"exemple.h": "c"
+		"exemple.h": "c",
+		"render.h": "c",
+		"sprite.h": "c"
 	}
 }

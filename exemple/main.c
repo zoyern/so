@@ -47,17 +47,21 @@ int	start(t_so *so, t_data *data)
 {
 	data->value = 1;
 	so->print("Start ----value : %d-----\n", data->value);
-	so->name = "solong";
-	so->width = 800;
-	so->height = 500;
 
-
+	char cwd[4096];
 	//t_socam *cam = so->new->camera(so,
+	t_sosprite *sprite = so->sprite(so,
 	so->construct(so,
-		"canva1", "212121", TRUE),
+		"canva1", "assets/images/lotr_map.xpm", TRUE),
 	so->transform(so,
 		so->vec2(so, 0, 0),
 		so->size(so, 1920, 1080)));
+	getcwd(cwd, sizeof(cwd));
+	so->print("getcwd : %s\n", cwd);
+	so->print("image trouvé ? : %p\n", sprite->origin->ptr);
+	so->print("image2 trouvé ? : %p\n", sprite->data->ptr);
+	so->area = sprite;
+
 // j'ai deja mon image de display
 
 	/*char	**map	= "" "coucou"
@@ -74,7 +78,7 @@ int	start(t_so *so, t_data *data)
 int	update(t_so *so, t_data *data)
 {
 	data->value = 2;
-	so->print("Update ----value : %d-----\n", data->value);
+	//so->print("Update ----value : %d-----\n", data->value);
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
 	return (0);
@@ -101,9 +105,9 @@ int	main(int argc, char **argv, char **envp)
 		return (solib->print("ERROR MAP\n"), solib->close(solib, EXIT_FAILURE));
 	data = solib->malloc(solib, sizeof(t_data));
 	data->map = map;
-	if (solib->so->start(solib, data,
+	if (solib->so->start(solib, data, solib->so->size(solib->so, 800, 500),
 			solib->so->sofuncs(solib, start, update, quit)))
-		return (solib->print("EXIT GAME ERROR\n"), solib->close(solib, EXIT_FAILURE));
+		return (solib->print("EXIT GAME ERROR\n"), solib->so->close(solib->so, EXIT_FAILURE));
 	return (solib->close(solib, EXIT_SUCCESS));
 	
 	/*solib->print("╔══❖═══════❖══╗\n");

@@ -18,8 +18,8 @@ NAME		= so
 
 #❖═══Compilation════❖
 CC			= cc
-CFLAG		= -Wall -Wextra -Werror -I./$(BUILD_INCLUDES) -g3 -gdwarf-4
-LDFLAGS 	= -L/minilibx-linux -lXext -lX11
+CFLAG		= -Wall -Wextra -Werror -I./$(BUILD_INCLUDES) -g -O0
+LDFLAGS 	= -L/minilibx-linux -lXext -lX11 -lm
 AR			= ar rc
 LIB			= ranlib
 
