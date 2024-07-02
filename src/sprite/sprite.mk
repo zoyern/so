@@ -13,7 +13,7 @@
 SPRITE_DIR		=	sprite
 
 SPRITE_HEADER	=	sprite.h
-SPRITE_FILE		=	sprite.c sprite_colorized.c
+SPRITE_FILE		=	sprite.c sprite_colorized.c sprite_grid.c
 
 SPRITE			=	$(addprefix $(SPRITE_DIR)/, $(SPRITE_FILE))
 SPRITE_HEAD		=	$(addprefix $(SPRITE_DIR)/, $(SPRITE_HEADER))

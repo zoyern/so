@@ -47,31 +47,16 @@ int	start(t_so *so, t_data *data)
 {
 	data->value = 1;
 	so->print("Start ----value : %d-----\n", data->value);
+	so->new->grid(so, data->map->width, data->map->height);
+	so->new->grid(so, data->map->width, data->map->height);
 
-	char cwd[4096];
-	//t_socam *cam = so->new->camera(so,
-	t_sosprite *sprite = so->sprite(so,
+	t_sosprite *sprite = so->new->sprite(so,
 	so->construct(so,
 		"canva1", "assets/images/lotr_map.xpm", TRUE),
 	so->transform(so,
 		so->vec2(so, 0, 0),
 		so->size(so, 1920, 1080)));
-	getcwd(cwd, sizeof(cwd));
-	so->print("getcwd : %s\n", cwd);
-	so->print("image trouvé ? : %p\n", sprite->origin->ptr);
-	so->print("image2 trouvé ? : %p\n", sprite->data->ptr);
-	so->area = sprite;
-
-// j'ai deja mon image de display
-
-	/*char	**map	= "" "coucou"
-	t_sosprite sliced_image[data->map->height][data->map->width] = [ 
-	["", ]
-	[]
-	];
-	so->area(so, )
-	
-	*/
+	(void)sprite;
 	return (0);
 }
 

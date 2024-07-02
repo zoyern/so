@@ -72,6 +72,11 @@ typedef struct s_sokeys
 	int			escape;
 }	t_sokeys;
 
+typedef struct s_sonew
+{
+	t_sosprite		*(*sprite)(t_so *so, t_soconstruct *construct, t_sotransform *transform);
+	void			(*grid)(t_so *so, int width, int height);
+}	t_sonew;
 
 typedef struct s_sofuncs
 {
@@ -79,6 +84,13 @@ typedef struct s_sofuncs
 	int	(*soupdate)(t_so *so, void *data);
 	int	(*soquit)(t_so *so, void *data);
 }	t_sofuncs;
+
+typedef struct s_sogrid
+{
+	int	width;
+	int	height;
+	t_sosprite ***area;
+}	t_sogrid;
 
 typedef struct s_so
 {
@@ -88,12 +100,14 @@ typedef struct s_so
 	t_sokeys		*inputs;
 	t_sofuncs		*funcs;
 	t_somemory		*imgmemory;
+	t_sonew			*new;
 	t_sosprite		*area;
+	t_sogrid		*grid;
 	void			*mlx;
 	void			*window;
 	void			*data;
 	char			*name;
-	t_sosize		*cadre;
+	t_sosize		*canva;
 	int				(*print)(const char *str, ...);
 	void			*(*malloc)(t_so *so, size_t size);
 	int				(*free)(t_so *solib, void *ptr);
@@ -104,7 +118,6 @@ typedef struct s_so
 	t_sovec2		*(*vec2)(t_so *so, float x, float y);
 	t_sotransform	*(*transform)(t_so *so, t_sovec2 *vector2, t_sosize *size);
 	t_soconstruct	*(*construct)(t_so *so, char *name, char *args, int enabled);
-	t_sosprite		*(*sprite)(t_so *so, t_soconstruct *construct, t_sotransform *transform);
 
 }	t_so;
 

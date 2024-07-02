@@ -146,7 +146,7 @@ int solib_convert_color(char *color)
 	lower_case(str, color);
 
 	if (!(base_length = get_base_length(base)) || !check_errors(str, base))
-		return (0);
+		return (free(str), -1);
 	s = 0;
 	while (str[s] != '\0' && (str[s] == ' ' || str[s] == '\t' || str[s] == '\r' || str[s] == '\n' || str[s] == '\v' || str[s] == '\f'))
 		s++;

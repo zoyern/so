@@ -31,7 +31,6 @@ t_sosprite_data	*so_get_image_data(t_so *so, char *args)
 	solib_sprite_adress(data);
 	data->size = so->size(so, width, height);
 	data->args = args;
-	//so->print("image bllaaaaaaaaaaaaaaaaaaaaaa : %p\n", data, data->ptr);
 	soimgmemory_add(so->solib, data->ptr);
 	return (data);
 }
@@ -47,10 +46,8 @@ t_sosprite_data	*so_get_sprite_data(t_so *so, char *args, t_sosize *size)
 	solib_sprite_adress(data);
 	data->size = size;
 	data->args = args;
-	//so->print("sprite bllaaaaaaaaaaaaaaaaaaaaaa : %p\n", data, data->ptr);
 	soimgmemory_add(so->solib, data->ptr);
-	//so->print("sprite bllaaaaaaaaaaaaaaaaaaaaaa : %p\n", data, data->ptr);
-	//solib_fill_sprite_color(data, args);
+	solib_fill_sprite_color(data, args);
 	return (data);
 }
 

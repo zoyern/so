@@ -16,6 +16,6 @@ int	so_render(t_so *so)
 {
 	(void)so;
 	//so->print("%C42bf79(------%C30c734(RENDER)------)\n");
-	mlx_put_image_to_window(so->mlx, so->window, so->area->origin->ptr, 0, 0);
+	mlx_put_image_to_window(so->mlx, so->window, so->area->data->ptr, 0, 0);
 	return (0);
 }

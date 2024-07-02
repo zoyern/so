@@ -17,5 +17,6 @@
 
 t_sosprite	*so_sprite(t_so *so,t_soconstruct *construct, t_sotransform *transform);
 void		solib_fill_sprite_color(t_sosprite_data *data, char *color);
+void		so_grid(t_so *so, int width, int height);
 
 #endif
