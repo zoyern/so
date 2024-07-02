@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: zoyern <zoyern@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:01:12 by marvin            #+#    #+#              #
-#    Updated: 2024/06/05 14:18:16 by marvin           ###   ########.fr        #
+#    Updated: 2024/06/13 12:43:57 by zoyern           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ clean : clear
 
 fclean :
 	@rm -f $(NAME)
-	@rm -rf libs
+#	@rm -rf libs
 	@rm -rf build/obj/
 	@echo "Clean   : ./$(NAME)"
 
@@ -57,7 +57,7 @@ mlx :
 #❖═══Dependencies═══❖
 dependencies: $(BUILD_INCLUDES)
 	@mkdir -p $(LIBS_DIR)
-	@for dep in $(DEPENDENCIES); do \
+#	@for dep in $(DEPENDENCIES); do \
 		name=$$(echo $$dep | cut -d ':' -f 1); \
 		url=$$(echo $$dep | awk -F':' '{print substr($$0, index($$0, ":") + 1)}'); \
 		if [ ! -d $(LIBS_DIR)/$$name ]; then \

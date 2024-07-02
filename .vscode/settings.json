@@ -10,6 +10,8 @@
 		"solibft_t.h": "c",
 		"sotypes.h": "c",
 		"hooks.h": "c",
-		"windows.h": "c"
+		"windows.h": "c",
+		"so.h": "c",
+		"exemple.h": "c"
 	}
 }

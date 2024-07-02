@@ -40,6 +40,12 @@ typedef struct s_sotransform {
 	t_sosize	*size;
 }	t_sotransform;
 
+typedef struct s_soconstruct {
+	char	*name;
+	char	*args;
+	int		enabled;
+}	t_soconstruct;
+
 typedef struct s_sosprite_data{
 	int				is_image;
 	t_sotransform	*transform;
@@ -51,7 +57,7 @@ typedef struct s_sosprite_data{
 } t_sosprite_data;
 
 typedef struct s_sosprite{
-	t_solib_construct	*construct;
+	t_soconstruct	*construct;
 	t_sovec2		*ratio;
 	t_sosprite_data	*origin;
 	t_sosprite_data	*data;
@@ -78,24 +84,28 @@ typedef struct s_sofuncs
 
 typedef struct s_so
 {
-	int			loop;
-	t_solib		*solib;
-	t_solibft	*libft;
-	t_sokeys	*inputs;
-	t_sofuncs	*funcs;
-	t_sonew		*new;
-	void		*mlx;
-	void		*window;
-	void		*data;
-	char		*name;
-	int			width;
-	int			height;
-	int			(*print)(const char *str, ...);
-	void		*(*malloc)(t_solib *solib, size_t size);
-	int			(*free)(t_solib *solib, void *ptr);
-	int			(*start)(t_solib *solib, void *data, t_sofuncs *funcs);
-	int			(*close)(t_so *so, int state);
-	t_sofuncs	*(*sofuncs)(t_solib *solib, int (*start)(), int (*update)(), int (*quit)());
+	int				loop;
+	t_solib			*solib;
+	t_solibft		*libft;
+	t_sokeys		*inputs;
+	t_sofuncs		*funcs;
+	t_sonew			*new;
+	void			*mlx;
+	void			*window;
+	void			*data;
+	char			*name;
+	int				width;
+	int				height;
+	int				(*print)(const char *str, ...);
+	void			*(*malloc)(t_so *so, size_t size);
+	int				(*free)(t_so *solib, void *ptr);
+	int				(*start)(t_solib *solib, void *data, t_sofuncs *funcs);
+	int				(*close)(t_so *so, int state);
+	t_sofuncs		*(*sofuncs)(t_solib *solib, int (*start)(), int (*update)(), int (*quit)());
+	t_sosize		*(*size)(t_solib *solib, float width, float height);
+	t_sovec2		*(*vec2)(t_solib *solib, float x, float y);
+	t_sotransform	*(*transform)(t_solib *solib, t_sovec2 *vector2, t_sosize *size);
+	t_soconstruct	*(*construct)(t_solib *solib, char *name, char *args, int enabled);
 	
 }	t_so;
 

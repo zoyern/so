@@ -36,7 +36,7 @@ int so_close(t_so *so, int state)
 	if (so)
 	{
 		free(so->mlx);
-		so->free(so->solib, so);
+		so->free(so, so);
 	}
 	if (state)
 		exit(state);
@@ -52,4 +52,14 @@ t_sofuncs	*sonew_sofuncs(t_solib *solib, int (*start)(), int (*update)(), int (*
 	funcs->soupdate = update;
 	funcs->soquit = quit;
 	return (funcs);
+}
+
+void	*so_malloc(t_so *so, size_t size)
+{
+	return (so->solib->malloc(so->solib, size));
+}
+
+int	so_free(t_so *so, void *ptr)
+{
+	return (so->solib->free(so->solib, ptr));
 }

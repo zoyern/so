@@ -27,12 +27,13 @@ int		so_update(t_so *so)
 		so->print("%C42bf79(------%C30c734(UPDATE)------)\n");
 		if (so->funcs->soupdate)
 			so->funcs->soupdate(so, so->data);
-		so_render(so);
+		if(so->loop)
+			so_render(so);
 	}
 	return (0);
 }
 
-int		so_start(t_solib *solib, void *data, t_sofuncs *funcs)
+int	so_start(t_solib *solib, void *data, t_sofuncs *funcs)
 {
 	solib->print("%C42bf79(------%C30c734(START)------)\n");
 	solib->so->funcs = funcs;
@@ -59,6 +60,10 @@ void	so_init(t_so *so)
 	so->start =  so_start;
 	so->close =  so_close_update;
 	so->sofuncs =  sonew_sofuncs;
+	so->size = so_size;
+	so->vec2 = so_vec2;
+	so->transform = so_transform;
+	so->construct = so_construct;
 }
 
 t_solib	*so(t_solib *solib)
@@ -77,12 +82,12 @@ t_solib	*so(t_solib *solib)
 	if (!so)
 		solib->close(solib, EXIT_FAILURE);
 	so_init(so);
+	so->solib = solib;
 	so->libft =  solib->libft;
 	so->print =  solib->print;
-	so->malloc =  solib->malloc;
-	so->free =  solib->free;
+	so->malloc =  so_malloc;
+	so->free =  so_free;
 	so->inputs = so_new_keys(solib);
 	solib->so = so;
-	solib->so->solib = solib;
 	return (solib);
 }
