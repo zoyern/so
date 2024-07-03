@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <so/all.h>
+#include <sotypes/soprintf.h>
 
 void solib_write_pixel(t_sosprite_data *data, int x, int y, int color)
 {
@@ -36,6 +37,8 @@ unsigned long ft_strlen(const char *s)
 	unsigned long i;
 
 	i = 0;
+	if (!s)
+		return (i);
 	while (s[i])
 		i++;
 	return (i);
@@ -46,6 +49,8 @@ char *ft_strdup(const char *s)
 	unsigned long len;
 	char *t;
 
+	if (!s)
+		return (NULL);
 	len = ft_strlen(s);
 	t = (char *)malloc(sizeof(char) * (len + 1));
 	if (!t)
@@ -68,7 +73,7 @@ char *lower_case(char *dest, char *src)
 			dest[i] += 32;
 		i++;
 	}
-	dest[i] = src[i];
+	dest[i] = '\0';
 	return (dest);
 }
 
@@ -143,6 +148,9 @@ int solib_convert_color(char *color)
 
 	char *base = "0123456789abcdef";
 	char *str = ft_strdup(color);
+
+	if (!color)
+		return (-1);
 	lower_case(str, color);
 
 	if (!(base_length = get_base_length(base)) || !check_errors(str, base))
@@ -173,15 +181,81 @@ void solib_fill_sprite_color(t_sosprite_data *data, char *color)
 	i = 0;
 	c = solib_convert_color(color);
 	if (c < 0)
-		c = solib_convert_color("FB335B");
-	if (c < 0)
-		c = 16462683;
+		c = (int)0xFF000000;
 	while (i < data->size->height)
 	{
 		j = 0;
 		while (j < data->size->width)
 		{
 			solib_write_pixel(data, j, i, c);
+			j++;
+		}
+		i++;
+	}
+}
+
+t_sovec2 *calculate_ratio_size(t_so *so, t_sosprite_data *dest, t_sosprite_data *src, t_sovec2 **out)
+{
+	t_sovec2 *ratio;
+	ratio = so->vec2(so,
+		(float)dest->size->width / (float)src->size->width,
+		(float)dest->size->height / (float)src->size->height);
+	*out = so->vec2(so, (int)((float)src->size->width / ratio->x), (int)((float)src->size->height / ratio->y));
+	return (ratio);
+}
+
+#include <stdio.h>
+
+void so_cpy_image(t_so *so, t_sosprite_data *dest, t_sosprite_data *src)
+{
+	int i;
+	int j;
+
+	if (!src || !dest)
+	{
+		dest = NULL;
+		return ;
+	}
+	t_sovec2 *ratio;
+	// size_si_origin_dois_etre_mis_sans_redimentionné l'imag
+	t_sovec2 *size_redem;
+
+
+	//utilise source pour...
+
+
+	ratio = calculate_ratio_size(so, dest, src, &size_redem);
+	printf(" ------------ ( %d --- %d ) ( %d --- %d )------------\n", dest->size->width, dest->size->height, src->size->width, src->size->height);
+	printf("---- %02f --- %02f --()-- %02f --- %02f ------\n", ratio->x, ratio->y, size_redem->x, size_redem->y);
+	i = 0;
+	while (i < dest->size->height)
+	{
+		j = 0;
+		while (j < dest->size->width)
+		{
+			solib_write_pixel(dest, j, i, solib_get_pixel(src, j / ratio->x, i / ratio->y));
+			j++;
+		}
+		i++;
+	}
+}
+
+void	so_put_on_grid(t_sosprite *dest, t_sosprite *src)
+{
+	int i;
+	int j;
+
+	if (!src || !dest)
+		return ;
+	i = 0;
+	j = 0;
+	printf(" - so->grid->area[i][j]  -- %f -- %f | %d -- %d\n",  src->transform->origin->x, src->transform->origin->y, src->transform->size->width, src->transform->size->height);
+	while (i < src->transform->size->height)
+	{
+		j = 0;
+		while (j < src->transform->size->width)
+		{
+			solib_write_pixel(dest->data, j + (int)src->transform->origin->x, i + (int)src->transform->origin->y, solib_get_pixel(src->data, j, i));
 			j++;
 		}
 		i++;

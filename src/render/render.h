@@ -16,5 +16,6 @@
 # include <so/all.h>
 
 int	so_render(t_so *so);
+void	so_put_grid(t_so *so);
 
 #endif

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <so/all.h>
+#include <stdio.h>
 
 t_sosize *so_size(t_so *so, float width, float height)
 {

@@ -49,16 +49,17 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 		return (solib->so->close(solib->so, EXIT_FAILURE));
 	if (so_init_windows(solib->so))
 		return (solib->so->close(solib->so, EXIT_FAILURE));
-	if (funcs->sostart)
-		funcs->sostart(solib->so, data);
-	so_hooks(solib->so);
-	solib->so->loop = 1;
 	solib->so->area = solib->so->new->sprite(solib->so,
 	solib->so->construct(solib->so,
 		"canva1", "212121", TRUE),
 	solib->so->transform(solib->so,
 		solib->so->vec2(solib->so, 0, 0),
 		solib->so->size(solib->so, size->width, size->height)));
+	//solib->so->area = NULL;
+	if (funcs->sostart)
+		funcs->sostart(solib->so, data);
+	so_hooks(solib->so);
+	solib->so->loop = 1;
 	mlx_loop_hook(solib->so->mlx, so_update, solib->so);
 	mlx_loop(solib->so->mlx);
 	so_quit(solib->so);

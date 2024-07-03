@@ -24,6 +24,8 @@ t_sosprite_data	*so_get_image_data(t_so *so, char *args)
 	int				width;
 	int				height;
 
+	if (!args)
+		return (NULL);
 	data = (t_sosprite_data *)so->malloc(so, sizeof(t_sosprite_data));
 	data->ptr = mlx_xpm_file_to_image(so->mlx, args, &width, &height);
 	if (!data->ptr)
@@ -51,6 +53,7 @@ t_sosprite_data	*so_get_sprite_data(t_so *so, char *args, t_sosize *size)
 	return (data);
 }
 
+//permet de prendre une image et la copy dans une nouvelle image sized a la taille de size args est une couleur si la copy echou exemple pas d'image ou NULL pour resté transparent
 t_sosprite_data	*so_cpy_image_sized(t_so *so, t_sosprite_data *img, char *args, t_sosize *size)
 {
 	t_sosprite_data	*data;
@@ -59,16 +62,20 @@ t_sosprite_data	*so_cpy_image_sized(t_so *so, t_sosprite_data *img, char *args, 
 	if (!img)
 		return (data);
 	//copy la nouvelle image
+	so_cpy_image(so, data, img);
 	return (data);
 }
+
+#include <stdio.h>
 
 t_sosprite	*so_sprite(t_so *so,t_soconstruct *construct, t_sotransform *transform)
 {
 	t_sosprite	*sprite;
 
-	(void)transform;
 	sprite = (t_sosprite *)so->malloc(so, sizeof(t_sosprite));
 	sprite->construct = construct;
+	sprite->transform = transform;
+	//printf("%0.2f - %02f\n", sprite->transform->origin->x, sprite->transform->origin->y);
 	sprite->origin = so_get_image_data(so, construct->args);
 	sprite->is_image = TRUE;
 	if (!sprite->origin)

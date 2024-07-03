@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "exemple.h"
+#include <so/all.h>
 
 #define WALL "000000"
 #define GROUND "00FF00"
@@ -43,20 +44,56 @@ char	***map_to_sprite(t_so *so, t_map *map)
 	return (out);
 }
 
+void	so_show_map(t_so *so, t_map *map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (!map)
+		return ;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			so->print("%c,",map->collider[i][j]);
+			j++;
+		}
+		so->print("\n");
+		i++;
+	}
+}
+
+#include <stdio.h>
+
 int	start(t_so *so, t_data *data)
 {
 	data->value = 1;
 	so->print("Start ----value : %d-----\n", data->value);
 	so->new->grid(so, data->map->width, data->map->height);
-	so->new->grid(so, data->map->width, data->map->height);
-
-	t_sosprite *sprite = so->new->sprite(so,
+	so_show_grid(so);
+	//so->new->grid(so, data->map->width, data->map->height);
+	t_sosprite *wall = so->new->sprite(so,
+	so->construct(so,
+		"canva1", "assets/images/ennemy.xpm", TRUE),
+	so->transform(so,
+		so->vec2(so, 0, 0),
+		so->size(so, 50, 47)));
+	t_sosprite *ground = so->new->sprite(so,
 	so->construct(so,
 		"canva1", "assets/images/lotr_map.xpm", TRUE),
 	so->transform(so,
 		so->vec2(so, 0, 0),
 		so->size(so, 1920, 1080)));
-	(void)sprite;
+	//so_show_map(so, data->map);
+	
+	so_grid_adds(so, '1', wall, data->map->collider);
+	so_grid_adds(so, 'X', ground, data->map->collider);
+	
+	so->print("\n");
+	so_show_grid(so);
 	return (0);
 }
 

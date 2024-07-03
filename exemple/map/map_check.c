@@ -89,16 +89,16 @@ char	**resolved_path(t_map *data, char **map, int x, int y)
 		return (NULL);
 	map[x][y] = 'X';
 	if ((x > 0) && ((map[x - 1][y] == '0' || map[x - 1][y] == 'C' || map[x
-			- 1][y] == 'E')))
+			- 1][y] == 'E' || map[x - 1][y] == 'P')))
 		resolved_path(data, map, x - 1, y);
 	if ((x < data->height) && ((map[x + 1][y] == '0' || map[x + 1][y] == 'C'
-		|| map[x + 1][y] == 'E')))
+		|| map[x + 1][y] == 'E' || map[x + 1][y] == 'P')))
 		resolved_path(data, map, x + 1, y);
 	if ((y < data->width) && ((map[x][y + 1] == '0' || map[x][y + 1] == 'C'
-		|| map[x][y + 1] == 'E')))
+		|| map[x][y + 1] == 'E' || map[x][y + 1] == 'P')))
 		resolved_path(data, map, x, y + 1);
 	if ((y > 0) && ((map[x][y - 1] == '0' || map[x][y - 1] == 'C' || map[x]
-		[y - 1] == 'E')))
+		[y - 1] == 'E' || map[x][y - 1] == 'P')))
 		resolved_path(data, map, x, y - 1);
 	return (map);
 }

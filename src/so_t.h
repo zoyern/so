@@ -89,6 +89,8 @@ typedef struct s_sogrid
 {
 	int	width;
 	int	height;
+	int	raw;
+	int	collum;
 	t_sosprite ***area;
 }	t_sogrid;
 
