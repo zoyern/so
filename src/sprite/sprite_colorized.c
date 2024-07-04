@@ -225,8 +225,8 @@ void so_cpy_image(t_so *so, t_sosprite_data *dest, t_sosprite_data *src)
 
 
 	ratio = calculate_ratio_size(so, dest, src, &size_redem);
-	printf(" ------------ ( %d --- %d ) ( %d --- %d )------------\n", dest->size->width, dest->size->height, src->size->width, src->size->height);
-	printf("---- %02f --- %02f --()-- %02f --- %02f ------\n", ratio->x, ratio->y, size_redem->x, size_redem->y);
+	//printf(" ------------ ( %d --- %d ) ( %d --- %d )------------\n", dest->size->width, dest->size->height, src->size->width, src->size->height);
+	//printf("---- %02f --- %02f --()-- %02f --- %02f ------\n", ratio->x, ratio->y, size_redem->x, size_redem->y);
 	i = 0;
 	while (i < dest->size->height)
 	{
@@ -249,7 +249,7 @@ void	so_put_on_grid(t_sosprite *dest, t_sosprite *src)
 		return ;
 	i = 0;
 	j = 0;
-	printf(" - so->grid->area[i][j]  -- %f -- %f | %d -- %d\n",  src->transform->origin->x, src->transform->origin->y, src->transform->size->width, src->transform->size->height);
+	//printf(" - so->grid->area[i][j]  -- %f -- %f | %d -- %d\n",  src->transform->origin->x, src->transform->origin->y, src->transform->size->width, src->transform->size->height);
 	while (i < src->transform->size->height)
 	{
 		j = 0;

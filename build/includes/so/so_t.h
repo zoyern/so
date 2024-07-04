@@ -60,7 +60,6 @@ typedef struct s_sosprite{
 	int				is_image;
 	t_soconstruct	*construct;
 	t_sotransform	*transform;
-	t_sovec2		*ratio;
 	t_sosprite_data	*origin;
 	t_sosprite_data	*data;
 } t_sosprite;

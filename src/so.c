@@ -49,12 +49,14 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 		return (solib->so->close(solib->so, EXIT_FAILURE));
 	if (so_init_windows(solib->so))
 		return (solib->so->close(solib->so, EXIT_FAILURE));
+	solib->so->new->grid(solib->so, 1, 1);
 	solib->so->area = solib->so->new->sprite(solib->so,
 	solib->so->construct(solib->so,
 		"canva1", "212121", TRUE),
 	solib->so->transform(solib->so,
 		solib->so->vec2(solib->so, 0, 0),
 		solib->so->size(solib->so, size->width, size->height)));
+	so_grid_adds(solib->so, 0, solib->so->area, NULL);
 	//solib->so->area = NULL;
 	if (funcs->sostart)
 		funcs->sostart(solib->so, data);

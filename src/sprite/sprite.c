@@ -79,7 +79,12 @@ t_sosprite	*so_sprite(t_so *so,t_soconstruct *construct, t_sotransform *transfor
 	sprite->origin = so_get_image_data(so, construct->args);
 	sprite->is_image = TRUE;
 	if (!sprite->origin)
+	{
+		sprite->origin = so_get_sprite_data(so, construct->args, transform->size);
+		if (!sprite->origin)
+			so->close(so, EXIT_FAILURE);
 		sprite->is_image = FALSE;
+	}
 	sprite->data = so_cpy_image_sized(so, sprite->origin, construct->args ,transform->size);
 	return (sprite);
 }

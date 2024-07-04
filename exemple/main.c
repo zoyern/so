@@ -73,27 +73,24 @@ int	start(t_so *so, t_data *data)
 	data->value = 1;
 	so->print("Start ----value : %d-----\n", data->value);
 	so->new->grid(so, data->map->width, data->map->height);
-	so_show_grid(so);
 	//so->new->grid(so, data->map->width, data->map->height);
 	t_sosprite *wall = so->new->sprite(so,
 	so->construct(so,
-		"canva1", "assets/images/ennemy.xpm", TRUE),
+		"canva1", "assets/images/lotr_map.xpm", TRUE),
 	so->transform(so,
 		so->vec2(so, 0, 0),
 		so->size(so, 50, 47)));
 	t_sosprite *ground = so->new->sprite(so,
 	so->construct(so,
-		"canva1", "assets/images/lotr_map.xpm", TRUE),
+		"canva1", "assets/images/ring.xpm", TRUE),
 	so->transform(so,
 		so->vec2(so, 0, 0),
 		so->size(so, 1920, 1080)));
-	//so_show_map(so, data->map);
 	
 	so_grid_adds(so, '1', wall, data->map->collider);
 	so_grid_adds(so, 'X', ground, data->map->collider);
-	
-	so->print("\n");
 	so_show_grid(so);
+	so->print("\n");
 	return (0);
 }
 
