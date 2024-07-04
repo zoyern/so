@@ -20,10 +20,18 @@
 # include <solibft.h>
 # include <so.h>
 
-typedef struct s_so			t_so;
-typedef struct s_sofuncs	t_sofuncs;
-typedef struct s_sokeys		t_sokeys;
-typedef struct s_sovec2		t_sovec2;
+typedef struct s_so				t_so;
+typedef struct s_sonew			t_sonew;
+typedef struct s_sofuncs		t_sofuncs;
+typedef struct s_sokeys			t_sokeys;
+typedef struct s_sovec2			t_sovec2;
+typedef struct s_sosize			t_sosize;
+typedef struct s_sotransform	t_sotransform;
+typedef struct s_soconstruct	t_soconstruct;
+typedef struct s_sosprite		t_sosprite;
+typedef struct s_sosprite_data	t_sosprite_data;
+typedef struct s_sosprite_list	t_sosprite_list;
+typedef struct s_sosprite_list	t_sosprite_list;
 
 typedef struct s_sovec2 {
 	float	x;
@@ -84,6 +92,17 @@ typedef struct s_sofuncs
 	int	(*soquit)(t_so *so, void *data);
 }	t_sofuncs;
 
+typedef struct s_sosprite_list
+{
+	t_sosprite	*current;
+	t_sosprite_list	*next;
+	void		(*show)(t_solib *solib);
+	t_somemdata	*(*remove)(t_solib *solib, void *ptr);
+	void		(*clear)(t_solib *solib);
+	void		(*add)(t_solib *solib, void *ptr);
+	void		(*close)(t_solib *solib);
+}	t_sosprite_list;
+
 typedef struct s_sogrid
 {
 	int	width;
@@ -91,6 +110,10 @@ typedef struct s_sogrid
 	int	raw;
 	int	collum;
 	t_sosprite ***area;
+	t_sosprite_list	*list;
+	void		(*background)(t_so *so, char c, t_sosprite *sprite, char **map);
+	void		(*close)(t_so *so);
+	void		(*show)(t_so *so);
 }	t_sogrid;
 
 typedef struct s_so

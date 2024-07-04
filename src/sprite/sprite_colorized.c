@@ -204,8 +204,6 @@ t_sovec2 *calculate_ratio_size(t_so *so, t_sosprite_data *dest, t_sosprite_data 
 	return (ratio);
 }
 
-#include <stdio.h>
-
 void so_cpy_image(t_so *so, t_sosprite_data *dest, t_sosprite_data *src)
 {
 	int i;

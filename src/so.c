@@ -56,7 +56,7 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 	solib->so->transform(solib->so,
 		solib->so->vec2(solib->so, 0, 0),
 		solib->so->size(solib->so, size->width, size->height)));
-	so_grid_adds(solib->so, 0, solib->so->area, NULL);
+	solib->so->grid->background(solib->so, 0, solib->so->area, NULL);
 	//solib->so->area = NULL;
 	if (funcs->sostart)
 		funcs->sostart(solib->so, data);

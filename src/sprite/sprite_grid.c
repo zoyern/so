@@ -69,12 +69,15 @@ void	so_grid(t_so *so, int width, int height)
 	j = 0;
 	so->print("grided :) %d -- %d\n", width, height);
 	if (so->grid)
-		so_free_grid(so);
+		so->grid->close(so);
 	so->grid = so->malloc(so, sizeof(t_sogrid));
 	so->grid->width = width;
 	so->grid->height = height;
 	so->grid->raw = so->canva->width / width;
 	so->grid->collum = so->canva->height / height;
+	so->grid->background = so_grid_add_background;
+	so->grid->close = so_free_grid;
+	so->grid->show = so_show_grid;
 	so->print("w x h : %d - %d | raw : %d -- collum %d\n", so->grid->width, so->grid->height, so->grid->raw, so->grid->collum);
 	so->grid->area = so->malloc(so, sizeof(t_sosprite **) * (height));
 	while (i < height)
@@ -87,20 +90,17 @@ void	so_grid(t_so *so, int width, int height)
 				"grid", NULL, TRUE), so->transform(so,
 				so->vec2(so, j * so->grid->raw, i * so->grid->collum),
 				so->size(so, so->grid->raw, so->grid->collum)));
-			//so->grid->area[i][j] = NULL;
 			j++;
 		}
 		i++;
 	}
-	//so_show_grid(so);
 }
 
-void	so_grid_adds(t_so *so, char c, t_sosprite *sprite, char **map)
+void	so_grid_add_background(t_so *so, char c, t_sosprite *sprite, char **map)
 {
 	int y;
 	int x;
 
-	//printf("GRIIIIDEEE ADDEEEEEEEE\n\n");
 	if (!so->grid)
 		return ;
 	y = 0;

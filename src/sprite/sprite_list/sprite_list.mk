@@ -10,13 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-include src/sprite/sprite_list/sprite_list.mk
+SPRITE_LIST_DIR		=	sprite_list
 
-SPRITE_DIR		=	sprite
+SPRITE_LIST_FILE	=	sprite_list.c
 
-SPRITE_HEADER	=	sprite.h
-SPRITE_FILE		=	sprite.c sprite_colorized.c sprite_grid.c
-SPRITE_FILE		+=	$(SPRITE_LIST)
-
-SPRITE			=	$(addprefix $(SPRITE_DIR)/, $(SPRITE_FILE))
-SPRITE_HEAD		=	$(addprefix $(SPRITE_DIR)/, $(SPRITE_HEADER))
+SPRITE_LIST			=	$(addprefix $(SPRITE_LIST_DIR)/, $(SPRITE_LIST_FILE))
+SPRITE_LIST_HEAD	=	$(addprefix $(SPRITE_LIST_DIR)/, $(SPRITE_LIST_HEADER))
