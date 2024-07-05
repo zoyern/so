@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SOKEYS_H
-# define SOKEYS_H
+#ifndef HOOKS_H
+# define HOOKS_H
 
 # include <so/all.h>
 
-enum e_solib_event{
+enum e_solib_event
+{
 	KeyPress = 2,
 	KeyRelease,
 	ButtonPress,
@@ -53,7 +54,8 @@ enum e_solib_event{
 	LASTEvent,
 };
 
-enum e_solib_mask{
+enum e_solib_mask
+{
 	NoEventMask = 0L,
 	KeyPressMask = (1L<<0),
 	KeyReleaseMask = (1L<<1),
@@ -86,6 +88,5 @@ void		so_hooks(t_so *so);
 t_sokeys	*so_new_keys(t_solib *solib);
 int			solib_key_press(int keycode, t_so *so);
 int			solib_key_release(int keycode, t_so *so);
-
 
 #endif

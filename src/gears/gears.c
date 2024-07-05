@@ -12,7 +12,7 @@
 
 #include <so/all.h>
 
-int so_close_update(t_so *so, int state)
+int	so_close_update(t_so *so, int state)
 {
 	if (so->mlx)
 		mlx_loop_end(so->mlx);
@@ -22,8 +22,7 @@ int so_close_update(t_so *so, int state)
 	return (state);
 }
 
-
-int so_close(t_so *so, int state)
+int	so_close(t_so *so, int state)
 {
 	if (so)
 	{
@@ -42,7 +41,8 @@ int so_close(t_so *so, int state)
 	return (state);
 }
 
-t_sofuncs	*sonew_sofuncs(t_solib *solib, int (*start)(), int (*update)(), int (*quit)())
+t_sofuncs	*sonew_sofuncs(t_solib *solib, int (*start)(),
+		int (*update)(), int (*quit)())
 {
 	t_sofuncs	*funcs;
 

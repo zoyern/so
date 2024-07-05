@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include <so/all.h>
+#include <solibft/sostring.h>
+#include <solibft/sostdlib.h>
 
 void	solib_write_pixel(t_sosprite_data *data, int x, int y, int color)
 {
@@ -42,4 +44,26 @@ t_sovec2	*calculate_ratio_size(t_so *so, t_sosprite_data *dest,
 	*out = so->vec2(so, (int)((float)src->size->width / ratio->x),
 			(int)((float)src->size->height / ratio->y));
 	return (ratio);
+}
+
+void	cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src)
+{
+	if (src->origin)
+		so_cpy_image(so,
+			dest->origin, src->origin);
+	else
+		so_cpy_image(so,
+			dest->origin, src->data);
+	so_cpy_image(so, dest->data, src->data);
+	dest->construct->args = src->construct->args;
+}
+
+int	so_get_color(char *color)
+{
+	int		nbr;
+
+	if (!color)
+		return ((int)0xFF000000);
+	nbr = ft_atoi_base(ft_strlower(color), "0123456789abcdef");
+	return (nbr);
 }

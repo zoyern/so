@@ -28,10 +28,11 @@ void			so_grid_add_background(t_so *so, char c,
 					t_sosprite *sprite, char **map);
 void			so_put_on_grid(t_sosprite *dest, t_sosprite *src);
 void			cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src);
-int				solib_convert_color(char *color);
-void			solib_write_pixel(t_sosprite_data *data, int x, int y, int color);
+int				so_get_color(char *color);
+void			solib_write_pixel(t_sosprite_data *data, int x, int y,
+					int color);
 unsigned int	solib_get_pixel(t_sosprite_data *data, int x, int y);
 t_sovec2		*calculate_ratio_size(t_so *so, t_sosprite_data *dest,
-				t_sosprite_data *src, t_sovec2 **out);
+					t_sosprite_data *src, t_sovec2 **out);
 
 #endif

@@ -12,7 +12,6 @@
 
 SPRITE_LIST_DIR		=	sprite_list
 
-SPRITE_LIST_FILE	=	sprite_list.c
+SPRITE_LIST_FILE	=	sprite_list.c 
 
 SPRITE_LIST			=	$(addprefix $(SPRITE_LIST_DIR)/, $(SPRITE_LIST_FILE))
-SPRITE_LIST_HEAD	=	$(addprefix $(SPRITE_LIST_DIR)/, $(SPRITE_LIST_HEADER))

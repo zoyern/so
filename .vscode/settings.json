@@ -14,6 +14,9 @@
 		"so.h": "c",
 		"exemple.h": "c",
 		"render.h": "c",
-		"sprite.h": "c"
+		"sprite.h": "c",
+		"soprintf.h": "c",
+		"sostdlib.h": "c",
+		"sostring.h": "c"
 	}
 }

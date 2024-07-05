@@ -67,35 +67,20 @@ void	so_show_map(t_so *so, t_map *map)
 
 int	start(t_so *so, t_data *data)
 {
-	data->value = 1;
-	so->print("Start ----value : %d-----\n", data->value);
+	t_sosprite *wall;
+	t_sosprite *ground;
+
 	so->new->grid(so, data->map->width, data->map->height);
-	t_sosprite *wall = so->new->sprite(so,
-	so->construct(so,
-		"canva1", "assets/images/lotr_map.xpm", TRUE),
-	so->transform(so,
-		so->vec2(so, 0, 0),
-		so->size(so, 50, 47)));
-	t_sosprite *ground = so->new->sprite(so,
-	so->construct(so,
-		"canva1", "assets/images/ring.xpm", TRUE),
-	so->transform(so,
-		so->vec2(so, 0, 0),
-		so->size(so, 1920, 1080)));
-
-	t_sosprite *enemy = so->new->sprite(so,
-	so->construct(so,
-		"canva1", "assets/images/ring.xpm", TRUE),
-	so->transform(so,
-		so->vec2(so, so->grid->area[data->map->player_y][data->map->player_x]->transform->origin->x,
-		so->grid->area[data->map->player_y][data->map->player_x]->transform->origin->y),
-		so->size(so, 50, 50)));
-
+	wall = so->new->sprite(so,
+			so->construct(so, "wall", "assets/images/test.xpm", TRUE),
+			so->transform(so, so->vec2(so, 0, 0),
+			so->size(so, 50, 47)));
+	ground = so->new->sprite(so,
+			so->construct(so, "ground", "assets/images/test2.xpm", TRUE),
+			so->transform(so, so->vec2(so, 0, 0),
+			so->size(so, 50, 47)));
 	so->grid->background(so, '1', wall, data->map->collider);
 	so->grid->background(so, 'X', ground, data->map->collider);
-	so->grid->show(so);
-	so->print("\n");
-	(void)enemy;
 	return (0);
 }
 

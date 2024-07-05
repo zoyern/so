@@ -12,7 +12,7 @@
 
 #include <so/all.h>
 
-int		so_quit(t_so *so)
+int	so_quit(t_so *so)
 {
 	so->print("%C42bf79(------%C30c734(QUIT)------)\n");
 	if (so->funcs->soquit)
@@ -20,14 +20,14 @@ int		so_quit(t_so *so)
 	return (0);
 }
 
-int		so_update(t_so *so)
+int	so_update(t_so *so)
 {
 	if (so->loop)
 	{
-		//so->print("%C42bf79(------%C30c734(UPDATE)------)\n");
+		so->print("%C42bf79(------%C30c734(UPDATE)------)\n");
 		if (so->funcs->soupdate)
 			so->funcs->soupdate(so, so->data);
-		if(so->loop)
+		if (so->loop)
 			so_render(so);
 	}
 	return (0);
@@ -49,14 +49,7 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 		return (solib->so->close(solib->so, EXIT_FAILURE));
 	if (so_init_windows(solib->so))
 		return (solib->so->close(solib->so, EXIT_FAILURE));
-	solib->so->new->grid(solib->so, 1, 1);
-	solib->so->area = solib->so->new->sprite(solib->so,
-	solib->so->construct(solib->so,
-		"canva1", "212121", TRUE),
-	solib->so->transform(solib->so,
-		solib->so->vec2(solib->so, 0, 0),
-		solib->so->size(solib->so, size->width, size->height)));
-	solib->so->grid->background(solib->so, 0, solib->so->area, NULL);
+	solib->so->background(solib->so, "212121", size);
 	if (funcs->sostart)
 		funcs->sostart(solib->so, data);
 	so_hooks(solib->so);
@@ -69,9 +62,10 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 
 void	so_init(t_so *so)
 {
-	so->start =  so_start;
-	so->close =  so_close_update;
-	so->sofuncs =  sonew_sofuncs;
+	so->canva = NULL;
+	so->start = so_start;
+	so->close = so_close_update;
+	so->sofuncs = sonew_sofuncs;
 	so->size = so_size;
 	so->vec2 = so_vec2;
 	so->transform = so_transform;
@@ -79,6 +73,7 @@ void	so_init(t_so *so)
 	so->new = (t_sonew *)so->malloc(so, sizeof(t_sonew));
 	so->new->sprite = so_sprite;
 	so->new->grid = so_grid;
+	so->background = so_set_background;
 }
 
 t_solib	*so(t_solib *solib)
@@ -96,15 +91,14 @@ t_solib	*so(t_solib *solib)
 	so = (t_so *)solib->malloc(solib, sizeof(t_so));
 	if (!so)
 		solib->close(solib, EXIT_FAILURE);
-	so->print =  solib->print;
-	so->grid =  NULL;
+	so->print = solib->print;
+	so->grid = NULL;
 	if (soimgnew_memory(so))
 		return (NULL);
-	so->malloc =  so_malloc;
-	so->free =  so_free;
+	so->malloc = so_malloc;
+	so->free = so_free;
 	so->solib = solib;
-	so->canva = NULL;
-	so->libft =  solib->libft;
+	so->libft = solib->libft;
 	so_init(so);
 	so->inputs = so_new_keys(solib);
 	solib->so = so;

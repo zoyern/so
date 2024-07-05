@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <solibft.h>
+# include <sotypes/soprintf.h>
 # include <mlx.h>
 # include <so.h>
 
@@ -28,10 +29,8 @@ typedef struct s_map
 	int	width;
 	int height;
 	int	collectible;
-	int	player_x;
-	int player_y;
-	int exit_x;
-	int	exit_y;
+	t_sosize player;
+	t_sosize exit;
 
 	char	**origin;
 	char	**collider;

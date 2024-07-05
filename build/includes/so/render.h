@@ -15,7 +15,8 @@
 
 # include <so/all.h>
 
-int	so_render(t_so *so);
+int		so_render(t_so *so);
 void	so_put_grid(t_so *so);
+void	so_set_background(t_so *so, char *color, t_sosize *size);
 
 #endif

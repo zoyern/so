@@ -12,10 +12,10 @@
 
 #include <so/all.h>
 
-void solib_sprite_adress(t_sosprite_data *data)
+void	solib_sprite_adress(t_sosprite_data *data)
 {
 	data->adress = mlx_get_data_addr(data->ptr, &(data->bpp),
-									 &(data->line_len), &(data->endian));
+			&(data->line_len), &(data->endian));
 }
 
 t_sosprite_data	*so_get_image_data(t_so *so, char *args)
@@ -53,48 +53,37 @@ t_sosprite_data	*so_get_sprite_data(t_so *so, char *args, t_sosize *size)
 	return (data);
 }
 
-//permet de prendre une image et la copy dans une nouvelle image sized a la taille de size args est une couleur si la copy echou exemple pas d'image ou NULL pour resté transparent
-t_sosprite_data	*so_cpy_image_sized(t_so *so, t_sosprite_data *img, char *args, t_sosize *size)
+t_sosprite_data	*so_cpy_image_sized(t_so *so,
+		t_sosprite_data *img, char *args, t_sosize *size)
 {
 	t_sosprite_data	*data;
 
 	data = so_get_sprite_data(so, args, size);
 	if (!img)
 		return (data);
-	//copy la nouvelle image
 	so_cpy_image(so, data, img);
 	return (data);
 }
 
-void	cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src)
-{
-	if (src->origin)
-		so_cpy_image(so,
-			dest->origin, src->origin);
-	else
-		so_cpy_image(so,
-			dest->origin, src->data);
-	so_cpy_image(so, dest->data, src->data);
-	dest->construct->args = src->construct->args;
-}
-
-t_sosprite	*so_sprite(t_so *so,t_soconstruct *construct, t_sotransform *transform)
+t_sosprite	*so_sprite(t_so *so, t_soconstruct *construct,
+		t_sotransform *transform)
 {
 	t_sosprite	*sprite;
 
 	sprite = (t_sosprite *)so->malloc(so, sizeof(t_sosprite));
 	sprite->construct = construct;
 	sprite->transform = transform;
-	//printf("%0.2f - %02f\n", sprite->transform->origin->x, sprite->transform->origin->y);
 	sprite->origin = so_get_image_data(so, construct->args);
 	sprite->is_image = TRUE;
 	if (!sprite->origin)
 	{
-		sprite->origin = so_get_sprite_data(so, construct->args, transform->size);
+		sprite->origin = so_get_sprite_data(so,
+				construct->args, transform->size);
 		if (!sprite->origin)
 			so->close(so, EXIT_FAILURE);
 		sprite->is_image = FALSE;
 	}
-	sprite->data = so_cpy_image_sized(so, sprite->origin, construct->args ,transform->size);
+	sprite->data = so_cpy_image_sized(so, sprite->origin,
+			construct->args, transform->size);
 	return (sprite);
 }

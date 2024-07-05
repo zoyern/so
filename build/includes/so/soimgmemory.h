@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 01:57:56 by marvin            #+#    #+#             */
-/*   Updated: 2024/07/02 19:11:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/07/05 14:21:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOIMGMEMORY_H
 # define SOIMGMEMORY_H
 
-#include <so/all.h>
+# include <so/all.h>
 
 int				soimgnew_memory(t_so *so);
 void			soimgmemory_show(t_solib *solib);

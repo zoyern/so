@@ -38,5 +38,7 @@ char	*ft_strnstr(const char *s,	const char *needle, size_t n);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(t_solib *solib, char const *s1, char const *set);
 char	*ft_substr(t_solib *solib, char const *s, size_t start, size_t len);
+char	*ft_strlower(char *str);
+char	*ft_strupper(char *str);
 
 #endif

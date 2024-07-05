@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../exemple.h"
+#include "../exemple.h"
 
 int	check_border_row(char **map, int y, int max_x)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	while (x < max_x)
@@ -31,56 +31,57 @@ int	check_border_col(char **map, int x, int max_y)
 	int	y;
 
 	y = 0;
-	while (y < max_y) 
+	while (y < max_y)
 	{
-		if (map[y][x] != '1'  && map[y][x] != '\0')
+		if (map[y][x] != '1' && map[y][x] != '\0')
 			return (1);
 		y++;
 	}
 	return (0);
 }
 
-int check_collectible(t_map *map)
+int	is_char(char c, char c2, t_sosize *dest_size, t_sosize src_size)
 {
-	int	x;
-	int	y;
-	int	exit;
-	int	player;
+	if (c != c2)
+		return (0);
+	*dest_size = src_size;
+	return (1);
+}
 
-	y = 0;
+int	check_collectible_identifier(t_map *map)
+{
+	int			exit;
+	int			player;
+	t_sosize	vec2;
+
+	vec2.height = 0;
 	exit = 0;
 	player = 0;
-	map->collectible = 0;
-	map->exit_x = 0;
-	map->exit_y = 0;
-	map->exit_x = 0;
-	map->exit_y = 0;
-	while (y < map->height) 
+	while (vec2.height < map->height)
 	{
-		x = 0;
-		while (x < map->width)
+		vec2.width = 0;
+		while (vec2.width < map->width)
 		{
-			if (map->origin[y][x] == 'C')
-				map->collectible++;
-			if (map->origin[y][x] == 'E')
-			{
-				map->exit_x = x;
-				map->exit_y = y;
-				exit++;
-			}
-			if (map->origin[y][x] == 'P')
-			{
-				map->player_x = x;
-				map->player_y = y;
-				player++;
-			}
-			x++;
+			map->collectible += is_char(map->origin[vec2.height][vec2.width], 'C', &vec2, vec2);
+			exit += is_char(map->origin[vec2.height][vec2.width], 'E', &map->exit, vec2);
+			player += is_char(map->origin[vec2.height][vec2.width], 'P', &map->player, vec2);
+			vec2.width ++;
 		}
-		y++;
+		vec2.height++;
 	}
 	if (exit != 1 || player != 1 || map->collectible < 1)
 		return (1);
 	return (0);
+}
+
+int	check_collectible(t_map *map)
+{
+	map->collectible = 0;
+	map->exit.width = 0;
+	map->exit.height = 0;
+	map->player.width = 0;
+	map->player.height = 0;
+	return (check_collectible_identifier(map));
 }
 
 char	**resolved_path(t_map *data, char **map, int x, int y)
@@ -109,7 +110,7 @@ int	check_path(t_map *map)
 	int	x;
 	int	y;
 
-	map->collider = resolved_path(map, map->collider, map->player_x, map->player_y);
+	map->collider = resolved_path(map, map->collider, map->player.width, map->player.height);
 	y = 0;
 	while (y < map->height) 
 	{
