@@ -31,7 +31,9 @@ clean : clear
 
 fclean :
 	@rm -f $(NAME)
-#	@rm -rf libs
+	@rm -rf minilibx-linux
+	@rm -rf build/includes/mlx.h
+	@rm -rf libs
 	@rm -rf build/obj/
 	@echo "Clean   : ./$(NAME)"
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../exemple.h"
+#include "../exemple.h"
 
 int	check_map_condition_return(int *y, int *x, int *x_tmp)
 {
@@ -23,28 +23,11 @@ int	check_map_condition_return(int *y, int *x, int *x_tmp)
 	return (0);
 }
 
-int	get_size_map(char *mapfile, int *width, int *height)
-{
-	int		x_tmp;
-	int		fd;
-	char	buf;
+// je pense donc je suis !
+//lenfer c'est les autres
 
-	*height = 0;
-	*width = 0;
-	x_tmp = 0;
-	fd = open(mapfile, O_RDONLY, 0644);
-	if (fd < 0)
-		return (1);
-	while (read(fd, &buf, 1) > 0)
-	{
-		if (buf == '\n')
-		{
-			if (check_map_condition_return(height, width, &x_tmp))
-				return (close(fd), 1);
-		}
-		else
-			x_tmp++;
-	}
+int	get_size_map_res(int *width, int *height, int x_tmp, int fd)
+{
 	if (*width != x_tmp + 1)
 		return (close(fd), 1);
 	*width = x_tmp;
@@ -64,13 +47,12 @@ int	check_map(t_map *map)
 	check += check_border_row(map->origin, map->height - 1, map->width);
 	check += check_border_col(map->origin, 0, map->height);
 	check += check_border_col(map->origin, map->width - 1, map->height);
-	check += check_collectible(map);
+	check += map_check(map);
 	check += check_path(map);
 	if (check > 0)
 		return (1);
 	return (0);
 }
-
 
 t_map	*create_map(t_solib *solib, int width, int height, char *mapfile)
 {

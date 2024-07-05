@@ -12,73 +12,20 @@
 
 #include "exemple.h"
 
-#define WALL "000000"
-#define GROUND "00FF00"
-#define PLAYER "0000FF"
-#define COLLECTIBLE "FFFF00"
-#define PLAYER_EXIT "FF0000"
-
-char	***map_to_sprite(t_so *so, t_map *map)
-{
-	char	***out;
-	int		i;
-	int		j;
-
-	i = 0;
-	out	= so->malloc(so, sizeof(char *) * (map->height));
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			out[i]	= so->malloc(so, sizeof(char) * (map->width));
-			if (map->collider[i][j] == '1')
-				out[i][j] = WALL;
-			else if (map->collider[i][j] == 'X')
-				out[i][j] = GROUND;
-			j++;
-		}
-		i++;
-	}
-	return (out);
-}
-
-void	so_show_map(t_so *so, t_map *map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if (!map)
-		return ;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			so->print("%c,",map->collider[i][j]);
-			j++;
-		}
-		so->print("\n");
-		i++;
-	}
-}
-
 int	start(t_so *so, t_data *data)
 {
-	t_sosprite *wall;
-	t_sosprite *ground;
+	t_sosprite	*wall;
+	t_sosprite	*ground;
 
 	so->new->grid(so, data->map->width, data->map->height);
 	wall = so->new->sprite(so,
 			so->construct(so, "wall", "assets/images/test.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
-			so->size(so, 50, 47)));
+				so->size(so, 50, 47)));
 	ground = so->new->sprite(so,
 			so->construct(so, "ground", "assets/images/test2.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
-			so->size(so, 50, 47)));
+				so->size(so, 50, 47)));
 	so->grid->background(so, '1', wall, data->map->collider);
 	so->grid->background(so, 'X', ground, data->map->collider);
 	return (0);
@@ -87,7 +34,7 @@ int	start(t_so *so, t_data *data)
 int	update(t_so *so, t_data *data)
 {
 	data->value = 2;
-	//so->print("Update ----value : %d-----\n", data->value);
+	so->print("Update ----value : %d-----\n", data->value);
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
 	return (0);
@@ -116,12 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	data->map = map;
 	if (solib->so->start(solib, data, solib->so->size(solib->so, 800, 500),
 			solib->so->sofuncs(solib, start, update, quit)))
-		return (solib->print("EXIT GAME ERROR\n"), solib->so->close(solib->so, EXIT_FAILURE));
+		return (solib->print("EXIT GAME ERROR\n"),
+			solib->so->close(solib->so, EXIT_FAILURE));
 	return (solib->close(solib, EXIT_SUCCESS));
-	
-	/*solib->print("╔══❖═══════❖══╗\n");
-	solib->print("║      SO     ║\n");
-	solib->print("║             ║\n");
-	solib->print("║ loading :✅ ║\n");
-	solib->print("╚══❖═══════❖══╝\n");*/
 }

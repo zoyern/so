@@ -12,6 +12,6 @@
 
 MAP_DIR		=	map
 
-MAP_FILE	=	map.c map_check.c
+MAP_FILE	=	map.c map_check.c map_check_resolver.c
 
 MAP			=	$(addprefix $(MAP_DIR)/, $(MAP_FILE))
