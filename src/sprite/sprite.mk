@@ -15,7 +15,7 @@ include src/sprite/sprite_list/sprite_list.mk
 SPRITE_DIR		=	sprite
 
 SPRITE_HEADER	=	sprite.h
-SPRITE_FILE		=	sprite.c sprite_colorized.c sprite_grid.c sprite_color.c
+SPRITE_FILE		=	sprite.c sprite_colorized.c sprite_grid.c sprite_color.c sprite_modier.c
 SPRITE_FILE		+=	$(SPRITE_LIST)
 
 SPRITE			=	$(addprefix $(SPRITE_DIR)/, $(SPRITE_FILE))
