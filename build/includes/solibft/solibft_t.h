@@ -19,6 +19,9 @@
 
 typedef struct s_solibft
 {
+	int				(*atoi_base)(char *str, char *base);
+	char			*(*itoa_base)(t_solib *solib, long int nbr, char *base);
+	char			*(*convert_base)(t_solib *solib, char *nbr, char *base_from, char *base_to);
 	long			(*atoi)(const char *nptr);
 	void			*(*calloc)(t_solib *solib, size_t nmemb, size_t size);
 	char			*(*itoa)(t_solib *solib, int n);

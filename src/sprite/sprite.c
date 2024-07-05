@@ -66,6 +66,18 @@ t_sosprite_data	*so_cpy_image_sized(t_so *so, t_sosprite_data *img, char *args, 
 	return (data);
 }
 
+void	cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src)
+{
+	if (src->origin)
+		so_cpy_image(so,
+			dest->origin, src->origin);
+	else
+		so_cpy_image(so,
+			dest->origin, src->data);
+	so_cpy_image(so, dest->data, src->data);
+	dest->construct->args = src->construct->args;
+}
+
 t_sosprite	*so_sprite(t_so *so,t_soconstruct *construct, t_sotransform *transform)
 {
 	t_sosprite	*sprite;
