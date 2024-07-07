@@ -11,6 +11,21 @@
 /* ************************************************************************** */
 
 #include <so/all.h>
+#include <sotypes/soprintf.h>
+
+void	so_put_images_list(t_sosprite *area, t_sosprite_list *list)
+{
+	t_sosprite_box	*box;
+
+	if (!list || !area)
+		return ;
+	box = list->first;
+	while (box->current)
+	{
+		so_put_on_grid(area, box->current);
+		box = box->next;
+	}
+}
 
 void	so_put_grid(t_so *so)
 {
@@ -19,7 +34,7 @@ void	so_put_grid(t_so *so)
 
 	i = 0;
 	j = 0;
-	if (!so->grid)
+	if (!so || !so->grid)
 		return ;
 	while (i < so->grid->height)
 	{
@@ -31,6 +46,7 @@ void	so_put_grid(t_so *so)
 		}
 		i++;
 	}
+	so_put_images_list(so->area, so->grid->list);
 }
 
 void	so_set_background(t_so *so, char *color, t_sosize *size)

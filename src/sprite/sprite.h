@@ -31,8 +31,13 @@ void			cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src);
 int				so_get_color(char *color);
 void			solib_write_pixel(t_sosprite_data *data, int x, int y,
 					int color);
+void			solib_write_all_pixel(t_sosprite_data *data, int x, int y,
+					int color);
 unsigned int	solib_get_pixel(t_sosprite_data *data, int x, int y);
 t_sovec2		*calculate_ratio_size(t_so *so, t_sosprite_data *dest,
 					t_sosprite_data *src, t_sovec2 **out);
+t_sosprite_list	*sprite_list(t_so *so);
+void			sprite_list_add(t_so *so, t_sosprite_list *list, t_sosprite *sprite);
+void			sprite_list_clear(t_so *so, t_sosprite_list *list);
 
 #endif

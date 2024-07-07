@@ -12,7 +12,7 @@
 
 #include <so/all.h>
 
-t_sosize	*so_size(t_so *so, float width, float height)
+t_sosize	*so_size(t_so *so, int width, int height)
 {
 	t_sosize	*size;
 

@@ -49,7 +49,7 @@ t_sosprite_data	*so_get_sprite_data(t_so *so, char *args, t_sosize *size)
 	data->size = size;
 	data->args = args;
 	soimgmemory_add(so->solib, data->ptr);
-	solib_fill_sprite_color(data, args);
+	//solib_fill_sprite_color(data, args);
 	return (data);
 }
 
@@ -70,6 +70,8 @@ t_sosprite	*so_sprite(t_so *so, t_soconstruct *construct,
 {
 	t_sosprite	*sprite;
 
+	if (!so || !construct || !transform)
+		return (NULL);
 	sprite = (t_sosprite *)so->malloc(so, sizeof(t_sosprite));
 	sprite->construct = construct;
 	sprite->transform = transform;
@@ -84,6 +86,6 @@ t_sosprite	*so_sprite(t_so *so, t_soconstruct *construct,
 		sprite->is_image = FALSE;
 	}
 	sprite->data = so_cpy_image_sized(so, sprite->origin,
-			construct->args, transform->size);
+			construct->args, transform->size);	
 	return (sprite);
 }

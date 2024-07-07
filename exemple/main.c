@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include "exemple.h"
+#include "so/sprite.h"
 
 int	start(t_so *so, t_data *data)
 {
 	t_sosprite	*wall;
 	t_sosprite	*ground;
+	t_sosprite	*enemy;
 
 	so->new->grid(so, data->map->width, data->map->height);
 	wall = so->new->sprite(so,
@@ -26,15 +28,21 @@ int	start(t_so *so, t_data *data)
 			so->construct(so, "ground", "assets/images/test2.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
 				so->size(so, 50, 47)));
+	enemy = so->new->sprite(so,
+			so->construct(so, "enemy", "assets/images/ennemy.xpm", TRUE),
+			so->transform(so,
+				so->vec2(so, data->map->player.width * so->grid->raw , data->map->player.height * so->grid->collum),
+				so->size(so, so->grid->raw, so->grid->collum)));
 	so->grid->background(so, '1', wall, data->map->collider);
 	so->grid->background(so, 'X', ground, data->map->collider);
+	sprite_list_add(so, so->grid->list, enemy);
 	return (0);
 }
 
 int	update(t_so *so, t_data *data)
 {
 	data->value = 2;
-	so->print("Update ----value : %d-----\n", data->value);
+	//so->print("Update ----value : %d-----\n", data->value);
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
 	return (0);

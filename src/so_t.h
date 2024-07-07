@@ -31,7 +31,7 @@ typedef struct s_soconstruct	t_soconstruct;
 typedef struct s_sosprite		t_sosprite;
 typedef struct s_sosprite_data	t_sosprite_data;
 typedef struct s_sosprite_list	t_sosprite_list;
-typedef struct s_sosprite_list	t_sosprite_list;
+typedef struct s_sosprite_box	t_sosprite_box;
 
 typedef struct s_sovec2
 {
@@ -99,10 +99,15 @@ typedef struct s_sofuncs
 	int	(*soquit)(t_so *so, void *data);
 }	t_sofuncs;
 
-typedef struct s_sosprite_list
+typedef struct s_sosprite_box
 {
 	t_sosprite		*current;
-	t_sosprite_list	*next;
+	t_sosprite_box	*next;
+}	t_sosprite_box;
+
+typedef struct s_sosprite_list
+{
+	t_sosprite_box	*first;
 	void			(*show)(t_solib *solib);
 	t_somemdata		*(*remove)(t_solib *solib, void *ptr);
 	void			(*clear)(t_solib *solib);
@@ -142,13 +147,13 @@ typedef struct s_so
 	t_sosize		*canva;
 	int				(*print)(const char *str, ...);
 	void			*(*malloc)(t_so *so, size_t size);
-	int				(*free)(t_so *solib, void *ptr);
+	int				(*free)(t_so *so, void *ptr);
 	int				(*start)(t_solib *solib, void *data, t_sosize *size,
 			t_sofuncs *funcs);
 	int				(*close)(t_so *so, int state);
 	t_sofuncs		*(*sofuncs)(t_solib *solib,
 			int (*start)(), int (*update)(), int (*quit)());
-	t_sosize		*(*size)(t_so *so, float width, float height);
+	t_sosize		*(*size)(t_so *so, int width, int height);
 	t_sovec2		*(*vec2)(t_so *so, float x, float y);
 	t_sotransform	*(*transform)(t_so *so, t_sovec2 *vector2, t_sosize *size);
 	t_soconstruct	*(*construct)(t_so *so, char *name, char *args,

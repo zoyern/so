@@ -27,6 +27,17 @@ void	solib_write_pixel(t_sosprite_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void	solib_write_all_pixel(t_sosprite_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = NULL;
+	if (x >= 0 && y >= 0 && x < data->size->width && y < data->size->height)
+		dst = (data->adress + ((x + (y) * (data->size->width))
+					* (data->bpp / 8)));
+	*(unsigned int *)dst = color;
+}
+
 unsigned int	solib_get_pixel(t_sosprite_data *data, int x, int y)
 {
 	return (*(unsigned int *)(data->adress + ((x + (y)

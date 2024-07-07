@@ -21,6 +21,8 @@ void	so_free_grid(t_so *so)
 		return ;
 	i = 0;
 	j = 0;
+	if (so->grid->list)
+		sprite_list_clear(so, so->grid->list);
 	while (i < so->grid->height)
 	{
 		j = 0;
@@ -89,6 +91,7 @@ void	so_grid(t_so *so, int width, int height)
 	if (so->grid)
 		so->grid->close(so);
 	so->grid = so_grid_init(so, width, height);
+	so->grid->list = sprite_list(so);
 	so->grid->area = so->malloc(so, sizeof(t_sosprite **) * (height));
 	while (i < height)
 	{

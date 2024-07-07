@@ -17,6 +17,7 @@
 		"sprite.h": "c",
 		"soprintf.h": "c",
 		"sostdlib.h": "c",
-		"sostring.h": "c"
+		"sostring.h": "c",
+		"stdio.h": "c"
 	}
 }

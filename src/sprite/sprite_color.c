@@ -19,6 +19,8 @@ void	solib_fill_sprite_color(t_sosprite_data *data, char *color)
 	int	c;
 
 	i = 0;
+	if (!color || data)
+		return ;
 	c = so_get_color(color);
 	if (c < 0)
 		c = (int)0xFF000000;
@@ -53,7 +55,7 @@ void	so_cpy_image(t_so *so, t_sosprite_data *dest, t_sosprite_data *src)
 		j = 0;
 		while (j < dest->size->width)
 		{
-			solib_write_pixel(dest, j, i,
+			solib_write_all_pixel(dest, j, i,
 				solib_get_pixel(src, j / ratio->x, i / ratio->y));
 			j++;
 		}
