@@ -67,6 +67,8 @@ void	cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src)
 			dest->origin, src->data);
 	so_cpy_image(so, dest->data, src->data);
 	dest->construct->args = src->construct->args;
+	dest->construct->name = src->construct->name;
+	dest->construct->enabled = src->construct->enabled;
 }
 
 int	so_get_color(char *color)

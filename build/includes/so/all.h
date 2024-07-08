@@ -19,6 +19,7 @@
 # include <so/hooks.h>
 # include <so/windows.h>
 # include <so/render.h>
+# include <so/colliders.h>
 # include <so/soimgmemory.h>
 # include <so/sprite.h>
 

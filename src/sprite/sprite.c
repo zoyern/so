@@ -75,6 +75,7 @@ t_sosprite	*so_sprite(t_so *so, t_soconstruct *construct,
 	sprite = (t_sosprite *)so->malloc(so, sizeof(t_sosprite));
 	sprite->construct = construct;
 	sprite->transform = transform;
+	sprite->collider = NULL;
 	sprite->origin = so_get_image_data(so, construct->args);
 	sprite->is_image = TRUE;
 	if (!sprite->origin)

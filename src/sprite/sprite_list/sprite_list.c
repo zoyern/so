@@ -22,6 +22,40 @@ void	sprite_list_add(t_so *so, t_sosprite_list *list, t_sosprite *sprite)
 	list->first = box;
 }
 
+t_sosprite_list	*sprite_list_gets(t_so *so, char *name, t_sosprite_list *list)
+{
+	t_sosprite_list	*new_list;
+	t_sosprite_box	*box;
+
+	if (!list || !name)
+		return (NULL);
+	new_list = sprite_list(so);
+	box = list->first;
+	while (box->current)
+	{
+		if (so->libft->strncmp(box->current->construct->name, name, so->libft->strlen(name) - 1))
+			sprite_list_add(so, new_list, box->current);
+		box = box->next;
+	}
+	return (new_list);
+}
+
+t_sosprite	*sprite_list_get(t_so *so, char *name, t_sosprite_list *list)
+{
+	t_sosprite_box	*box;
+
+	if (!list || !name)
+		return (NULL);
+	box = list->first;
+	while (box->current)
+	{
+		if (!so->libft->strncmp(box->current->construct->name, name, so->libft->strlen(name) - 1))
+			return (box->current);
+		box = box->next;
+	}
+	return (NULL);
+}
+
 void	sprite_list_clear(t_so *so, t_sosprite_list *list)
 {
 	t_sosprite_box	*box;

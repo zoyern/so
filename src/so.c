@@ -50,6 +50,7 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 	if (so_init_windows(solib->so))
 		return (solib->so->close(solib->so, EXIT_FAILURE));
 	so_hooks(solib->so);
+	sonew_collider(solib->so);
 	solib->so->new->grid(solib->so, 1, 1);
 	solib->so->background(solib->so, "212121", size);
 	if (funcs->sostart)

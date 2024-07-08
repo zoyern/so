@@ -44,10 +44,7 @@ void	so_cpy_image(t_so *so, t_sosprite_data *dest, t_sosprite_data *src)
 	int			j;
 
 	if (!src || !dest)
-	{
-		dest = NULL;
 		return ;
-	}
 	ratio = calculate_ratio_size(so, dest, src, &size_redem);
 	i = 0;
 	while (i < dest->size->height)
@@ -63,23 +60,29 @@ void	so_cpy_image(t_so *so, t_sosprite_data *dest, t_sosprite_data *src)
 	}
 }
 
-void	so_put_on_grid(t_sosprite *dest, t_sosprite *src)
+void	so_put_on_grid(t_so *so, t_sosprite *dest, t_sosprite *src)
 {
 	int	i;
 	int	j;
 
-	if (!src || !dest)
+	if (!src || !dest || !src->construct->enabled)
 		return ;
 	i = 0;
 	j = 0;
+	(void)so;
+	//so->print("%d-%d | %d-%d ---- %d-%d | %d-%d\n", (int)src->transform->origin->x, (int)src->transform->origin->y, src->transform->size->width, dest->transform->size->height,  (int)dest->transform->origin->x, (int)dest->transform->origin->y, dest->transform->size->width, dest->transform->size->height);
 	while (i < src->transform->size->height)
 	{
 		j = 0;
 		while (j < src->transform->size->width)
 		{
-			solib_write_pixel(dest->data, j + (int)src->transform->origin->x, i
-				+ (int)src->transform->origin->y,
-				solib_get_pixel(src->data, j, i));
+
+			if (i + (int)src->transform->origin->y >= (int)dest->transform->origin->y && i + (int)src->transform->origin->y <= dest->transform->size->height
+					&& j + (int)src->transform->origin->x >= (int)dest->transform->origin->x && j + (int)src->transform->origin->x <= dest->transform->size->width)
+				solib_write_pixel(dest->data, j + (int)src->transform->origin->x, i
+					+ (int)src->transform->origin->y,
+					solib_get_pixel(src->data, j, i));
+				
 			j++;
 		}
 		i++;

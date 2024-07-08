@@ -11,19 +11,49 @@
 /* ************************************************************************** */
 
 #include "exemple.h"
-#include "so/sprite.h"
+#include "so/colliders.h"
+#include <stdio.h>
+
+int	wall_collider_callback(t_so *so, t_data *data, t_socollider *src, t_socollider *object)
+{
+	(void)so;
+	(void)src;
+	(void)object;
+	if (!so->libft->strncmp(object->sprite->construct->name, "enemy", 5))
+	{
+		data->map->collectible--;
+		   so->print("gg tu as recuperer un coin !! reste : %d\n", data->map->collectible);
+		   src->enabled = FALSE;
+		   src->sprite->construct->enabled = FALSE;
+	}
+	return (0);
+}
+
+
+int	player_collider_callback(t_so *so, t_data *data, t_socollider *src, t_socollider *object)
+{
+	(void)so;
+	(void)src;
+	(void)object;
+	(void)data;
+	/*if (!so->libft->strncmp(object->sprite->construct->name, "wall", 4))
+		so->print("playercolider_callback - collider : %s tappé par : %s\n", src->sprite->construct->name, object->sprite->construct->name);*/
+	return (0);
+}
 
 int	start(t_so *so, t_data *data)
 {
 	t_sosprite	*wall;
 	t_sosprite	*ground;
 	t_sosprite	*enemy;
+	t_sosprite	*ring;
 
 	so->new->grid(so, data->map->width, data->map->height);
 	wall = so->new->sprite(so,
 			so->construct(so, "wall", "assets/images/test.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
-				so->size(so, 50, 47)));
+				so->size(so, 50, 50)));
+	collider_list_add(so, wall, FALSE, NULL);
 	ground = so->new->sprite(so,
 			so->construct(so, "ground", "assets/images/test2.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
@@ -31,18 +61,45 @@ int	start(t_so *so, t_data *data)
 	enemy = so->new->sprite(so,
 			so->construct(so, "enemy", "assets/images/ennemy.xpm", TRUE),
 			so->transform(so,
-				so->vec2(so, data->map->player.width * so->grid->raw , data->map->player.height * so->grid->collum),
-				so->size(so, so->grid->raw, so->grid->collum)));
+				so->vec2(so, data->map->player.width - so->grid->raw + 200 , data->map->player.height * so->grid->collum - 200),
+				so->size(so, 15, 15)));
+	collider_list_add(so, enemy, TRUE, player_collider_callback);
+	ring = so->new->sprite(so,
+			so->construct(so, "ring", "assets/images/ring.xpm", TRUE),
+			so->transform(so, so->vec2(so, 0, 0),
+				so->size(so, 20, 20)));
+	collider_list_add(so, ring, FALSE, wall_collider_callback);
 	so->grid->background(so, '1', wall, data->map->collider);
 	so->grid->background(so, 'X', ground, data->map->collider);
-	sprite_list_add(so, so->grid->list, enemy);
+	so->grid->add(so, enemy);
+	so->grid->adds(so, 'C', ring, data->map->origin);
+	collider_list_show(so);
 	return (0);
 }
+
+#include <stdio.h>
 
 int	update(t_so *so, t_data *data)
 {
 	data->value = 2;
-	//so->print("Update ----value : %d-----\n", data->value);
+	t_sosprite	*enemy2 = so->grid->get(so, "enemy", so->grid->list);
+	t_sovec2	inputs;
+
+	inputs.x = 0;
+	inputs.y = 0;
+	if (so->inputs->escape)
+		return (so->close(so, EXIT_SUCCESS));
+	//so->print("hhhhhhhhhhheeeeeeeeeeyyyyyyyyyyyyyyyyy get sprite baby - %s\nargs : %s\n", enemy2->construct->name, enemy2->construct->args);
+	if (so->inputs->keys['z'])
+		inputs.y -= 1;
+	if (so->inputs->keys['q'])
+		inputs.x -= 1;
+	if (so->inputs->keys['s'])
+		inputs.y += 1;
+	if (so->inputs->keys['d'])
+		inputs.x += 1;
+	//printf("[%f][%f]\n", inputs.x, inputs.y);
+	so_move_and_check(so, inputs, enemy2);
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
 	return (0);
