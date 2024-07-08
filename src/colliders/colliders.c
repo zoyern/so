@@ -12,7 +12,8 @@
 
 #include <so/all.h>
 
-void	collider_list_add(t_so *so, t_sosprite *sprite, int enabled, int (*callback)())
+void	collider_list_add(t_so *so, t_sosprite *sprite, int enabled,
+		int (*callback)())
 {
 	t_socollider	*collider;
 
@@ -42,49 +43,6 @@ void	collider_list_clear(t_so *so, t_socolliders_list *list)
 	}
 	so->free(so, list);
 	list = NULL;
-}
-
-void	so_vec2_add(t_so *so, t_sovec2 *dest, t_sovec2 vec2)
-{
-	if (!dest || !so)
-		return ;
-	dest->x += vec2.x;
-	dest->y += vec2.y;
-}
-
-void	so_move_and_check(t_so *so, t_sovec2 vec2, t_sosprite *sprite)
-{
-	t_socollider	*collider;
-	t_sovec2		new_vec2;
-	int				ret;
-
-	collider = so->colliders->first;
-	ret = 0;
-	new_vec2.x = sprite->collider->transform->origin->x + vec2.x;
-	new_vec2.y = sprite->collider->transform->origin->y + vec2.y;
-	while (collider && collider->transform)
-	{
-		if ( collider->enabled && collider != sprite->collider
-					&& is_inside(*collider->transform->origin, *collider->transform->size, new_vec2, *sprite->collider->transform->size))
-			{
-				if (collider->callback)
-				{
-					if (collider->callback(so, so->data, collider, sprite->collider))
-						so->close(so, EXIT_FAILURE);
-					ret++;
-				}
-				if (sprite->collider->callback)
-				{
-					if (sprite->collider->callback(so, so->data, sprite->collider, collider))
-						so->close(so, EXIT_FAILURE);
-					ret++;
-				}
-
-			}
-		collider = collider->next;
-	}
-	if (!ret)
-		so_vec2_add(so, sprite->transform->origin, vec2);
 }
 
 void	sonew_collider(t_so *so)

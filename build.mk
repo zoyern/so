@@ -15,6 +15,7 @@ include exemple/exemple.mk
 
 #❖═══Setup══════════❖
 NAME		= so
+NAME_OUT	= so_long
 
 #❖═══Compilation════❖
 CC			= cc
@@ -57,7 +58,7 @@ $(BUILD_OBJ)/%.o: $(SRC_DIR)/%.c | $(BUILD_INCLUDES)
 $(NAME): $(DEPENDENCIES_RULES) $(OBJ)
 	${AR} $(LIBRARY) ${OBJ} $(LIBRARYS) minilibx-linux/libmlx.a
 	${LIB} $(LIBRARY)
-	$(CC) $(SRC_EXEMPLE) $(OBJ) -o $(NAME) $(CFLAG) $(LIBRARYS) minilibx-linux/libmlx.a $(LIBRARY) $(LDFLAGS)
+	$(CC) $(SRC_EXEMPLE) $(OBJ) -o $(NAME_OUT) $(CFLAG) $(LIBRARYS) minilibx-linux/libmlx.a $(LIBRARY) $(LDFLAGS)
 
 $(BUILD_INCLUDES):
 	mkdir -p $(BUILD_DIR);

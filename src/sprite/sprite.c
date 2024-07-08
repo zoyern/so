@@ -12,10 +12,16 @@
 
 #include <so/all.h>
 
-void	solib_sprite_adress(t_sosprite_data *data)
+void	so_sprite_free(t_so *so, t_sosprite *sprite)
 {
-	data->adress = mlx_get_data_addr(data->ptr, &(data->bpp),
-			&(data->line_len), &(data->endian));
+	if (sprite->origin)
+		soimgfree(so, sprite->origin->ptr);
+	if (sprite->data)
+		soimgfree(so, sprite->data->ptr);
+	so->free(so, sprite->construct);
+	so->free(so, sprite->transform);
+	sprite->collider = NULL;
+	so->free(so, sprite);
 }
 
 t_sosprite_data	*so_get_image_data(t_so *so, char *args)
@@ -87,6 +93,6 @@ t_sosprite	*so_sprite(t_so *so, t_soconstruct *construct,
 		sprite->is_image = FALSE;
 	}
 	sprite->data = so_cpy_image_sized(so, sprite->origin,
-			construct->args, transform->size);	
+			construct->args, transform->size);
 	return (sprite);
 }

@@ -1,2 +1,2 @@
-# solib_ft
-just solib_ft
+# so
+just so a solong lib

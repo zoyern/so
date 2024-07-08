@@ -48,20 +48,15 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 	if (so_init_windows(solib->so))
 		return (solib->so->close(solib->so, EXIT_FAILURE));
 	so_hooks(solib->so);
+	so_first_background(solib->so, size);
 	sonew_collider(solib->so);
-	solib->so->area = solib->so->new->sprite(solib->so,
-			solib->so->construct(solib->so,
-				"so_background", "212121", TRUE),
-			solib->so->transform(solib->so,
-				solib->so->vec2(solib->so, 0, 0),
-				solib->so->size(solib->so, size->width, size->height)));
 	if (funcs->sostart)
 		funcs->sostart(solib->so, data);
 	solib->so->loop = 1;
 	mlx_loop_hook(solib->so->mlx, so_update, solib->so);
 	mlx_loop(solib->so->mlx);
 	so_quit(solib->so);
-	return (so_close(solib->so, 0));
+	return (so_close(solib->so, EXIT_SUCCESS));
 }
 
 void	so_init(t_so *so)
@@ -85,9 +80,7 @@ t_solib	*so(t_solib *solib, char *name)
 	t_so	*so;
 
 	if (!solib)
-		solib = sonew_types(0, NULL, NULL);
-	if (!solib)
-		exit(EXIT_FAILURE);
+		return (NULL);
 	if (!solib->libft)
 		solib = sonew_libft(solib);
 	if (!solib->libft)

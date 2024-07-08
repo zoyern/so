@@ -23,6 +23,7 @@
 
 typedef struct s_data
 {
+	int			movement;
 	int			width;
 	int			height;
 	int			collectible;
@@ -31,6 +32,12 @@ typedef struct s_data
 
 	char		**origin;
 	char		**collider;
+
+	t_sosprite	*wall;
+	t_sosprite	*ground;
+	t_sosprite	*enemy;
+	t_sosprite	*ring;
+	t_sosprite	*dore;
 }	t_data;
 
 t_data	*get_map(t_solib *solib, char *mapfile);

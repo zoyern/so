@@ -12,10 +12,15 @@
 
 #include <so/all.h>
 
+int	close_hook_func(t_so *so)
+{
+	return (so->close(so, EXIT_SUCCESS));
+}
+
 void	so_hooks(t_so *so)
 {
 	mlx_hook(so->window,
-		17, 1L << 0, so->close, so);
+		17, 1L << 0, close_hook_func, so);
 	mlx_hook(so->window,
 		KeyPress, KeyPressMask, &solib_key_press, so);
 	mlx_hook(so->window,

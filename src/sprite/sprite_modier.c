@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <so/all.h>
-#include <solibft/sostring.h>
-#include <solibft/sostdlib.h>
 
 void	solib_write_pixel(t_sosprite_data *data, int x, int y, int color)
 {
@@ -69,14 +67,4 @@ void	cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src)
 	dest->construct->args = src->construct->args;
 	dest->construct->name = src->construct->name;
 	dest->construct->enabled = src->construct->enabled;
-}
-
-int	so_get_color(char *color)
-{
-	int		nbr;
-
-	if (!color)
-		return ((int)0xFF000000);
-	nbr = ft_atoi_base(ft_strlower(color), "0123456789abcdef");
-	return (nbr);
 }

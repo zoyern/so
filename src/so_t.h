@@ -20,19 +20,20 @@
 # include <solibft.h>
 # include <so.h>
 
-typedef struct s_so				t_so;
-typedef struct s_sonew			t_sonew;
-typedef struct s_sofuncs		t_sofuncs;
-typedef struct s_sokeys			t_sokeys;
-typedef struct s_sovec2			t_sovec2;
-typedef struct s_sosize			t_sosize;
-typedef struct s_sotransform	t_sotransform;
-typedef struct s_soconstruct	t_soconstruct;
-typedef struct s_sosprite		t_sosprite;
-typedef struct s_sosprite_data	t_sosprite_data;
-typedef struct s_sosprite_list	t_sosprite_list;
-typedef struct s_sosprite_box	t_sosprite_box;
-typedef struct s_socollider		t_socollider;
+typedef struct s_so					t_so;
+typedef struct s_sonew				t_sonew;
+typedef struct s_sofuncs			t_sofuncs;
+typedef struct s_sokeys				t_sokeys;
+typedef struct s_sovec2				t_sovec2;
+typedef struct s_sosize				t_sosize;
+typedef struct s_sotransform		t_sotransform;
+typedef struct s_soconstruct		t_soconstruct;
+typedef struct s_sosprite			t_sosprite;
+typedef struct s_sosprite_data		t_sosprite_data;
+typedef struct s_sosprite_list		t_sosprite_list;
+typedef struct s_sosprite_box		t_sosprite_box;
+typedef struct s_socollider			t_socollider;
+typedef struct s_socolliders_list	t_socolliders_list;
 
 typedef struct s_sovec2
 {
@@ -75,7 +76,8 @@ typedef struct s_socollider
 	int				enabled;
 	t_sotransform	*transform;
 	t_sosprite		*sprite;
-	int				(*callback)(t_so *so, void *data, t_socollider *src, t_socollider *object);
+	int				(*callback)(t_so *so, void *data,
+			t_socollider *src, t_socollider *object);
 	t_socollider	*next;
 }	t_socollider;
 
@@ -149,10 +151,9 @@ typedef struct s_sogrid
 			char **map);
 	void			(*add)(t_so *so, t_sosprite *sprite);
 	void			(*adds)(t_so *so, char c, t_sosprite *sprite, char **map);
-	t_sosprite 		*(*get)(t_so *so, char *name, t_sosprite_list *list);
+	t_sosprite		*(*get)(t_so *so, char *name, t_sosprite_list *list);
 	void			(*gets)();
 	void			(*close)(t_so *so);
-	void			(*show)(t_so *so);
 }	t_sogrid;
 
 typedef struct s_so
@@ -182,7 +183,8 @@ typedef struct s_so
 			int (*start)(), int (*update)(), int (*quit)());
 	t_sosize			*(*size)(t_so *so, int width, int height);
 	t_sovec2			*(*vec2)(t_so *so, float x, float y);
-	t_sotransform		*(*transform)(t_so *so, t_sovec2 *vector2, t_sosize *size);
+	t_sotransform		*(*transform)(t_so *so, t_sovec2 *vector2,
+			t_sosize *size);
 	t_soconstruct		*(*construct)(t_so *so, char *name, char *args,
 			int enabled);
 	void				(*background)(t_so *so, char *color, t_sosize *size);

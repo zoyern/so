@@ -33,7 +33,8 @@ t_sosprite_list	*sprite_list_gets(t_so *so, char *name, t_sosprite_list *list)
 	box = list->first;
 	while (box->current)
 	{
-		if (so->libft->strncmp(box->current->construct->name, name, so->libft->strlen(name) - 1))
+		if (so->libft->strncmp(box->current->construct->name, name,
+				so->libft->strlen(name) - 1))
 			sprite_list_add(so, new_list, box->current);
 		box = box->next;
 	}
@@ -49,7 +50,8 @@ t_sosprite	*sprite_list_get(t_so *so, char *name, t_sosprite_list *list)
 	box = list->first;
 	while (box->current)
 	{
-		if (!so->libft->strncmp(box->current->construct->name, name, so->libft->strlen(name) - 1))
+		if (!so->libft->strncmp(box->current->construct->name, name,
+				so->libft->strlen(name) - 1))
 			return (box->current);
 		box = box->next;
 	}

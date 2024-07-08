@@ -15,7 +15,8 @@
 
 #define CONSTANTE 0.004
 
-int	player_collider_callback(t_so *so, t_data *data, t_socollider *src, t_socollider *object)
+int	player_collider_callback(t_so *so, t_data *data, t_socollider *src,
+		t_socollider *object)
 {
 	(void)src;
 	if (!so->libft->strncmp(object->sprite->construct->name, "ring", 4))
@@ -23,11 +24,14 @@ int	player_collider_callback(t_so *so, t_data *data, t_socollider *src, t_socoll
 		object->enabled = FALSE;
 		object->sprite->construct->enabled = FALSE;
 		data->collectible--;
-		so->print("gg tu as recuperer un coin !! reste : %d\n", data->collectible);
+		so->print("gg tu as recuperer un coin !! reste : %d\n",
+			data->collectible);
 		if (data->collectible <= 0)
 		{
-			so->grid->get(so, "dore", so->grid->list)->construct->enabled = TRUE;
-			so->grid->get(so, "dore", so->grid->list)->collider->enabled = TRUE;
+			so->grid->get(so, "dore", so->grid->list)
+				->construct->enabled = TRUE;
+			so->grid->get(so, "dore", so->grid->list)
+				->collider->enabled = TRUE;
 		}
 	}
 	if (!so->libft->strncmp(object->sprite->construct->name, "dore", 5))
@@ -38,58 +42,57 @@ int	player_collider_callback(t_so *so, t_data *data, t_socollider *src, t_socoll
 	return (0);
 }
 
-int	start(t_so *so, t_data *data)
+void	data_init_sprite(t_so *so, t_data *data)
 {
-	t_sosprite	*wall;
-	t_sosprite	*ground;
-	t_sosprite	*enemy;
-	t_sosprite	*ring;
-	t_sosprite	*dore;
-
-	so->new->grid(so, data->width, data->height);
-	wall = so->new->sprite(so,
+	data->wall = so->new->sprite(so,
 			so->construct(so, "wall", "assets/images/test.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
 				so->size(so, 50, 50)));
-	ground = so->new->sprite(so,
+	data->ground = so->new->sprite(so,
 			so->construct(so, "ground", "assets/images/test2.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
 				so->size(so, 50, 47)));
-	enemy = so->new->sprite(so,
+	data->enemy = so->new->sprite(so,
 			so->construct(so, "enemy", "assets/images/ennemy.xpm", TRUE),
 			so->transform(so,
-				so->vec2(so, data->player.width + so->grid->raw , data->player.height + so->grid->collum),
+				so->vec2(so, data->player.width + so->grid->raw,
+					data->player.height + so->grid->collum),
 				so->size(so, 15, 15)));
-	ring = so->new->sprite(so,
+	data->ring = so->new->sprite(so,
 			so->construct(so, "ring", "assets/images/ring.xpm", TRUE),
 			so->transform(so, so->vec2(so, 0, 0),
 				so->size(so, 20, 20)));
-	dore = so->new->sprite(so,
+	data->dore = so->new->sprite(so,
 			so->construct(so, "dore", "assets/images/lotr_map.xpm", FALSE),
 			so->transform(so, so->vec2(so, 0, 0),
 				so->size(so, so->grid->raw, so->grid->collum)));
-	collider_list_add(so, enemy, TRUE, player_collider_callback);
-	collider_list_add(so, wall, FALSE, NULL);
-	collider_list_add(so, ring, FALSE, NULL);
-	collider_list_add(so, dore, FALSE, NULL);
-	so->grid->background(so, '1', wall, data->collider);
-	so->grid->background(so, 'X', ground, data->collider);
-	so->grid->add(so, enemy);
-	so->grid->adds(so, 'C', ring, data->origin);
-	so->grid->adds(so, 'E', dore, data->origin);
+}
+
+int	start(t_so *so, t_data *data)
+{
+	data->movement = 0;
+	so->new->grid(so, data->width, data->height);
+	data_init_sprite(so, data);
+	collider_list_add(so, data->enemy, TRUE, player_collider_callback);
+	collider_list_add(so, data->wall, FALSE, NULL);
+	collider_list_add(so, data->ring, FALSE, NULL);
+	collider_list_add(so, data->dore, FALSE, NULL);
+	so->grid->background(so, '1', data->wall, data->collider);
+	so->grid->background(so, 'X', data->ground, data->collider);
+	so->grid->add(so, data->enemy);
+	so->grid->adds(so, 'C', data->ring, data->origin);
+	so->grid->adds(so, 'E', data->dore, data->origin);
 	return (0);
 }
 
-int	update(t_so *so)
+int	update(t_so *so, t_data *data)
 {
-	t_sosprite	*enemy2;
 	t_sovec2	inputs;
 
-	inputs.x = 0;
-	inputs.y = 0;
-	enemy2 = so->grid->get(so, "enemy", so->grid->list);
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
+	inputs.x = 0;
+	inputs.y = 0;
 	if (so->inputs->keys['z'])
 		inputs.y -= 1 + (so->canva->width * CONSTANTE);
 	if (so->inputs->keys['q'])
@@ -98,7 +101,13 @@ int	update(t_so *so)
 		inputs.y += 1 + + (so->canva->width * CONSTANTE);
 	if (so->inputs->keys['d'])
 		inputs.x += 1 + (so->canva->width * CONSTANTE);
-	so_move_and_check(so, inputs, enemy2);
+	if (so->inputs->keys['z'] || so->inputs->keys['q']
+		|| so->inputs->keys['s'] || so->inputs->keys['d'])
+	{
+		data->movement++;
+		so->print("%C1313ac(movement : )%Cfdee00(%d)\n", data->movement);
+	}
+	so_move_and_check(so, inputs, so->grid->get(so, "enemy", so->grid->list));
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
 	return (0);
@@ -112,10 +121,12 @@ int	main(int argc, char **argv, char **envp)
 	solib = so(sonew_types(argc, argv, envp), "solong");
 	if (!solib)
 		return (solib->close(solib, EXIT_FAILURE));
-	data = get_map(solib, "assets/maps/tmp.ber");
+	if (solib->env->argc != 1)
+		return (solib->print("ERROR ARG\n"), solib->close(solib, 1));
+	data = get_map(solib, solib->env->argv[0]);
 	if (!data)
 		return (solib->print("ERROR MAP\n"), solib->close(solib, EXIT_FAILURE));
-	if (solib->so->start(solib, data, solib->so->size(solib->so, 1280 , 720),
+	if (solib->so->start(solib, data, solib->so->size(solib->so, 1280, 720),
 			solib->so->sofuncs(solib, start, update, NULL)))
 		return (solib->print("EXIT GAME ERROR\n"),
 			solib->so->close(solib->so, EXIT_FAILURE));
