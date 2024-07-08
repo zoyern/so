@@ -18,7 +18,7 @@
 #define COLLECTIBLE "FFFF00"
 #define PLAYER_EXIT "FF0000"
 
-char	**resolved_path(t_map *data, char **map, int x, int y)
+char	**resolved_path(t_data *data, char **map, int x, int y)
 {
 	if (!map)
 		return (NULL);
@@ -38,7 +38,7 @@ char	**resolved_path(t_map *data, char **map, int x, int y)
 	return (map);
 }
 
-int	check_path(t_map *map)
+int	check_path(t_data *map)
 {
 	int	x;
 	int	y;
@@ -60,7 +60,7 @@ int	check_path(t_map *map)
 	return (0);
 }
 
-char	***map_to_sprite(t_so *so, t_map *map)
+char	***map_to_sprite(t_so *so, t_data *map)
 {
 	char	***out;
 	int		i;

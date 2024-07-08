@@ -1,23 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.h                                             :+:      :+:    :+:   */
+/*   callback.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 20:22:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/07 20:22:15 by marvin           ###   ########.fr       */
+/*   Created: 2024/07/08 18:17:48 by marvin            #+#    #+#             */
+/*   Updated: 2024/07/08 18:17:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLLIDERS_H
-# define COLLIDERS_H
-
-# include <so/all.h>
-
-void	sonew_collider(t_so *so);
-void	collider_list_add(t_so *so, t_sosprite *sprite, int enabled, int (*callback)());
-void	so_move_and_check(t_so *so, t_sovec2 vec2, t_sosprite *sprite);
-int		is_inside(t_sovec2 A, t_sosize A_size, t_sovec2 B, t_sosize B_size);
-
-#endif
+#include "exemple.h"

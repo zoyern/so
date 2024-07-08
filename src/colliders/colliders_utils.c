@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.h                                             :+:      :+:    :+:   */
+/*   colliders_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 20:22:15 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/07 20:22:15 by marvin           ###   ########.fr       */
+/*   Created: 2024/07/08 20:10:13 by marvin            #+#    #+#             */
+/*   Updated: 2024/07/08 20:10:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLLIDERS_H
-# define COLLIDERS_H
+#include <so/all.h>
 
-# include <so/all.h>
-
-void	sonew_collider(t_so *so);
-void	collider_list_add(t_so *so, t_sosprite *sprite, int enabled, int (*callback)());
-void	so_move_and_check(t_so *so, t_sovec2 vec2, t_sosprite *sprite);
-int		is_inside(t_sovec2 A, t_sosize A_size, t_sovec2 B, t_sosize B_size);
-
-#endif
+int is_inside(t_sovec2 A, t_sosize A_size, t_sovec2 B, t_sosize B_size)
+{
+    return (B.x + B_size.width >= A.x + 5 &&
+            B.y + B_size.height >= A.y +  5 &&
+            B.x <= A.x + A_size.width - 5 &&
+            B.y <= A.y + A_size.height - 5);
+}

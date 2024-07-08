@@ -48,7 +48,7 @@ int	is_char(char c, char c2, t_sosize *dest_size, t_sosize src_size)
 	return (1);
 }
 
-int	check_identifier(t_map *map)
+int	check_identifier(t_data *map)
 {
 	int			exit;
 	int			player;
@@ -77,7 +77,7 @@ int	check_identifier(t_map *map)
 	return (0);
 }
 
-int	map_check(t_map *map)
+int	map_check(t_data *map)
 {
 	map->collectible = 0;
 	map->exit.width = 0;

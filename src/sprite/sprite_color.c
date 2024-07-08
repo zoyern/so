@@ -19,7 +19,8 @@ void	solib_fill_sprite_color(t_sosprite_data *data, char *color)
 	int	c;
 
 	i = 0;
-	if (!color || data)
+	
+	if (!color || !data)
 		return ;
 	c = so_get_color(color);
 	if (c < 0)
@@ -60,7 +61,7 @@ void	so_cpy_image(t_so *so, t_sosprite_data *dest, t_sosprite_data *src)
 	}
 }
 
-void	so_put_on_grid(t_so *so, t_sosprite *dest, t_sosprite *src)
+void	so_put_on_grid(t_sosprite *dest, t_sosprite *src)
 {
 	int	i;
 	int	j;
@@ -69,8 +70,6 @@ void	so_put_on_grid(t_so *so, t_sosprite *dest, t_sosprite *src)
 		return ;
 	i = 0;
 	j = 0;
-	(void)so;
-	//so->print("%d-%d | %d-%d ---- %d-%d | %d-%d\n", (int)src->transform->origin->x, (int)src->transform->origin->y, src->transform->size->width, dest->transform->size->height,  (int)dest->transform->origin->x, (int)dest->transform->origin->y, dest->transform->size->width, dest->transform->size->height);
 	while (i < src->transform->size->height)
 	{
 		j = 0;

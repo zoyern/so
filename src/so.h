@@ -15,6 +15,6 @@
 
 # include <so/so_t.h>
 
-t_solib	*so(t_solib *solib);
+t_solib	*so(t_solib *solib, char *name);
 
 #endif

@@ -14,7 +14,6 @@
 
 int	so_quit(t_so *so)
 {
-	so->print("%C42bf79(------%C30c734(QUIT)------)\n");
 	if (so->funcs->soquit)
 		so->funcs->soquit(so, so->data);
 	return (0);
@@ -24,7 +23,6 @@ int	so_update(t_so *so)
 {
 	if (so->loop)
 	{
-		//so->print("%C42bf79(------%C30c734(UPDATE)------)\n");
 		if (so->funcs->soupdate)
 			so->funcs->soupdate(so, so->data);
 		if (so->loop)
@@ -37,11 +35,11 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 {
 	if (!solib->so)
 		return (1);
-	solib->print("%C42bf79(------%C30c734(START)------)\n");
 	solib->so->funcs = funcs;
 	solib->so->data = data;
-	solib->so->name = "solong";
 	solib->so->canva = size;
+	if (!solib->so->name)
+		solib->so->name = "so";
 	solib->so->mlx = mlx_init();
 	if (!solib->so->mlx)
 		return (1);
@@ -51,8 +49,12 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 		return (solib->so->close(solib->so, EXIT_FAILURE));
 	so_hooks(solib->so);
 	sonew_collider(solib->so);
-	solib->so->new->grid(solib->so, 1, 1);
-	solib->so->background(solib->so, "212121", size);
+	solib->so->area = solib->so->new->sprite(solib->so,
+			solib->so->construct(solib->so,
+				"so_background", "212121", TRUE),
+			solib->so->transform(solib->so,
+				solib->so->vec2(solib->so, 0, 0),
+				solib->so->size(solib->so, size->width, size->height)));
 	if (funcs->sostart)
 		funcs->sostart(solib->so, data);
 	solib->so->loop = 1;
@@ -78,7 +80,7 @@ void	so_init(t_so *so)
 	so->background = so_set_background;
 }
 
-t_solib	*so(t_solib *solib)
+t_solib	*so(t_solib *solib, char *name)
 {
 	t_so	*so;
 
@@ -103,6 +105,7 @@ t_solib	*so(t_solib *solib)
 	so->libft = solib->libft;
 	so_init(so);
 	so->inputs = so_new_keys(solib);
+	so->name = name;
 	solib->so = so;
 	return (solib);
 }

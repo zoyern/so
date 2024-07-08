@@ -26,7 +26,7 @@ void			so_cpy_image(t_so *so, t_sosprite_data *dest,
 					t_sosprite_data *src);
 void			so_grid_add_background(t_so *so, char c,
 					t_sosprite *sprite, char **map);
-void			so_put_on_grid(t_so *so, t_sosprite *dest, t_sosprite *src);
+void			so_put_on_grid(t_sosprite *dest, t_sosprite *src);
 void			cpy_sprite(t_so *so, t_sosprite *dest, t_sosprite *src);
 int				so_get_color(char *color);
 void			solib_write_pixel(t_sosprite_data *data, int x, int y,

@@ -49,7 +49,7 @@ t_sosprite_data	*so_get_sprite_data(t_so *so, char *args, t_sosize *size)
 	data->size = size;
 	data->args = args;
 	soimgmemory_add(so->solib, data->ptr);
-	//solib_fill_sprite_color(data, args);
+	solib_fill_sprite_color(data, args);
 	return (data);
 }
 

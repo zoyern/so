@@ -134,12 +134,18 @@ void	so_grid_add_background(t_so *so, char c, t_sosprite *sprite, char **map)
 			{
 				cpy_sprite(so, so->grid->area[y][x], sprite);
 				if (sprite->collider)
-					collider_list_add(so, so->grid->area[y][x], TRUE, sprite->collider->callback);
+					collider_list_add(so, so->grid->area[y][x], sprite->construct->enabled, sprite->collider->callback);
 				else
 					so->grid->area[y][x]->collider = NULL;
 			}
 			if (!map)
+			{
 				cpy_sprite(so, so->grid->area[y][x], sprite);
+				if (sprite->collider)
+					collider_list_add(so, so->grid->area[y][x], sprite->construct->enabled, sprite->collider->callback);
+				else
+					so->grid->area[y][x]->collider = NULL;
+			}
 			x++;
 		}
 		y++;
@@ -177,7 +183,7 @@ void	so_grid_adds_list(t_so *so, char c, t_sosprite *sprite, char **map)
 						so->vec2(so, (j * so->grid->raw) + (so->grid->raw/2) - (sprite->transform->size->width / 2), (i * so->grid->collum) + (so->grid->collum / 2) - (sprite->transform->size->height / 2)),
 						so->size(so, sprite->transform->size->width, sprite->transform->size->width)));
 				if (sprite->collider)
-					collider_list_add(so, new_sprite, TRUE,  sprite->collider->callback);
+					collider_list_add(so, new_sprite, sprite->construct->enabled,  sprite->collider->callback);
 				sprite_list_add(so, so->grid->list, new_sprite);
 			}
 			j++;

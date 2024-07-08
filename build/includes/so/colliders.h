@@ -18,6 +18,6 @@
 void	sonew_collider(t_so *so);
 void	collider_list_add(t_so *so, t_sosprite *sprite, int enabled, int (*callback)());
 void	so_move_and_check(t_so *so, t_sovec2 vec2, t_sosprite *sprite);
-void	collider_list_show(t_so *so);
+int		is_inside(t_sovec2 A, t_sosize A_size, t_sovec2 B, t_sosize B_size);
 
 #endif

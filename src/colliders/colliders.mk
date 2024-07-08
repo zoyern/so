@@ -13,7 +13,7 @@
 COLLIDERS_DIR		=	colliders
 
 COLLIDERS_HEADER	=	colliders.h
-COLLIDERS_FILE		=	colliders.c 
+COLLIDERS_FILE		=	colliders.c colliders_utils.c
 
 COLLIDERS			=	$(addprefix $(COLLIDERS_DIR)/, $(COLLIDERS_FILE))
 COLLIDERS_HEAD		=	$(addprefix $(COLLIDERS_DIR)/, $(COLLIDERS_HEADER))

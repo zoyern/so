@@ -36,7 +36,7 @@ int	get_size_map_res(int *width, int *height, int x_tmp, int fd)
 	return (0);
 }
 
-int	check_map(t_map *map)
+int	check_map(t_data *map)
 {
 	int	check;
 
@@ -54,15 +54,15 @@ int	check_map(t_map *map)
 	return (0);
 }
 
-t_map	*create_map(t_solib *solib, int width, int height, char *mapfile)
+t_data	*create_map(t_solib *solib, int width, int height, char *mapfile)
 {
-	t_map	*map;
+	t_data	*map;
 	int		fd;
 	char	buf;
 	char	*str;
 	int		i;
 
-	map = solib->malloc(solib, sizeof(t_map));
+	map = solib->malloc(solib, sizeof(t_data));
 	str = solib->malloc(solib, sizeof(char) * (4096 + 1));
 	map->width = width;
 	map->height = height;
@@ -82,7 +82,7 @@ t_map	*create_map(t_solib *solib, int width, int height, char *mapfile)
 	return (map);
 }
 
-t_map	*get_map(t_solib *solib, char *mapfile)
+t_data	*get_map(t_solib *solib, char *mapfile)
 {
 	int		width;
 	int		height;
