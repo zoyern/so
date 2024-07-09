@@ -72,7 +72,9 @@ void	so_init(t_so *so)
 	so->new = (t_sonew *)so->malloc(so, sizeof(t_sonew));
 	so->new->sprite = so_sprite;
 	so->new->grid = so_grid;
+	so->new->collider = sonew_collider;
 	so->background = so_set_background;
+	so->move = so_move_and_check;
 }
 
 t_solib	*so(t_solib *solib, char *name)

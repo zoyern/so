@@ -84,11 +84,9 @@ typedef struct s_socollider
 typedef struct s_socolliders_list
 {
 	t_socollider	*first;
-	void			(*show)(t_solib *solib);
-	t_somemdata		*(*remove)(t_solib *solib, void *ptr);
-	void			(*clear)(t_solib *solib);
-	void			(*add)(t_solib *solib, void *ptr);
-	void			(*close)(t_solib *solib);
+	void			(*add)(t_so *so, t_sosprite *sprite, int enabled,
+			int (*callback)());
+	void			(*close)(t_so *so);
 }	t_socolliders_list;
 
 typedef struct s_sosprite
@@ -113,6 +111,7 @@ typedef struct s_sonew
 	t_sosprite		*(*sprite)(t_so *so, t_soconstruct *construct,
 			t_sotransform *transform);
 	void			(*grid)(t_so *so, int width, int height);
+	void			(*collider)(t_so *so);
 }	t_sonew;
 
 typedef struct s_sofuncs
@@ -187,6 +186,7 @@ typedef struct s_so
 			t_sosize *size);
 	t_soconstruct		*(*construct)(t_so *so, char *name, char *args,
 			int enabled);
+	void				(*move)(t_so *so, t_sovec2 vec2, t_sosprite *sprite);
 	void				(*background)(t_so *so, char *color, t_sosize *size);
 
 }	t_so;

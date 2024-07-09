@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "exemple.h"
-#include "so/colliders.h"
 
 #define CONSTANTE 0.004
 
@@ -73,10 +72,10 @@ int	start(t_so *so, t_data *data)
 	data->movement = 0;
 	so->new->grid(so, data->width, data->height);
 	data_init_sprite(so, data);
-	collider_list_add(so, data->enemy, TRUE, player_collider_callback);
-	collider_list_add(so, data->wall, FALSE, NULL);
-	collider_list_add(so, data->ring, FALSE, NULL);
-	collider_list_add(so, data->dore, FALSE, NULL);
+	so->colliders->add(so, data->enemy, TRUE, player_collider_callback);
+	so->colliders->add(so, data->wall, FALSE, NULL);
+	so->colliders->add(so, data->ring, FALSE, NULL);
+	so->colliders->add(so, data->dore, FALSE, NULL);
 	so->grid->background(so, '1', data->wall, data->collider);
 	so->grid->background(so, 'X', data->ground, data->collider);
 	so->grid->add(so, data->enemy);
@@ -107,7 +106,7 @@ int	update(t_so *so, t_data *data)
 		data->movement++;
 		so->print("%C1313ac(movement : )%Cfdee00(%d)\n", data->movement);
 	}
-	so_move_and_check(so, inputs, so->grid->get(so, "enemy", so->grid->list));
+	so->move(so, inputs, so->grid->get(so, "enemy", so->grid->list));
 	if (so->inputs->escape)
 		return (so->close(so, EXIT_SUCCESS));
 	return (0);

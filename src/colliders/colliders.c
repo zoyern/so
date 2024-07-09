@@ -27,31 +27,35 @@ void	collider_list_add(t_so *so, t_sosprite *sprite, int enabled,
 	sprite->collider = collider;
 }
 
-void	collider_list_clear(t_so *so, t_socolliders_list *list)
+void	collider_list_clear(t_so *so)
 {
 	t_socollider	*box;
 	t_socollider	*tmp;
 
-	if (!list)
+	if (!so->colliders)
 		return ;
-	box = list->first;
+	box = so->colliders->first;
 	while (box)
 	{
 		tmp = box->next;
 		so->free(so, box);
 		box = tmp;
 	}
-	so->free(so, list);
-	list = NULL;
+	so->free(so, so->colliders);
+	so->colliders = NULL;
 }
 
 void	sonew_collider(t_so *so)
 {
 	if (!so)
 		return ;
+	if (so->colliders)
+		collider_list_clear(so);
 	so->colliders = so->malloc(so, sizeof(t_socolliders_list));
 	so->colliders->first = so->malloc(so, sizeof(t_socollider));
 	so->colliders->first->transform = NULL;
 	so->colliders->first->sprite = NULL;
 	so->colliders->first->next = NULL;
+	so->colliders->close = collider_list_clear;
+	so->colliders->add = collider_list_add;
 }

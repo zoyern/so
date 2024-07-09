@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <solibft.h>
-# include <sotypes/soprintf.h>
 # include <mlx.h>
 # include <so.h>
 
