@@ -92,16 +92,17 @@ int	update(t_so *so, t_data *data)
 		return (so->close(so, EXIT_SUCCESS));
 	inputs.x = 0;
 	inputs.y = 0;
-	if (so->inputs->keys['z'])
+	if (so->inputs->keys['z'] || so->inputs->keys['w'])
 		inputs.y -= 1 + (so->canva->width * CONSTANTE);
-	if (so->inputs->keys['q'])
+	if (so->inputs->keys['q'] || so->inputs->keys['a'])
 		inputs.x -= 1 + + (so->canva->width * CONSTANTE);
 	if (so->inputs->keys['s'])
 		inputs.y += 1 + + (so->canva->width * CONSTANTE);
 	if (so->inputs->keys['d'])
 		inputs.x += 1 + (so->canva->width * CONSTANTE);
 	if (so->inputs->keys['z'] || so->inputs->keys['q']
-		|| so->inputs->keys['s'] || so->inputs->keys['d'])
+		|| so->inputs->keys['s'] || so->inputs->keys['d']
+		|| so->inputs->keys['w'] | so->inputs->keys['a'])
 	{
 		data->movement++;
 		so->print("%C1313ac(movement : )%Cfdee00(%d)\n", data->movement);
