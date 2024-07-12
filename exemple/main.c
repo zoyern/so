@@ -54,8 +54,8 @@ void	data_init_sprite(t_so *so, t_data *data)
 	data->enemy = so->new->sprite(so,
 			so->construct(so, "enemy", "assets/images/ennemy.xpm", TRUE),
 			so->transform(so,
-				so->vec2(so, data->player.width + so->grid->raw,
-					data->player.height + so->grid->collum),
+				so->vec2(so, data->player.width * so->grid->raw + (so->grid->raw / 2),
+					data->player.height * so->grid->collum + (so->grid->collum / 2)),
 				so->size(so, 15, 15)));
 	data->ring = so->new->sprite(so,
 			so->construct(so, "ring", "assets/images/ring.xpm", TRUE),
