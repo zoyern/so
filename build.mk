@@ -56,9 +56,9 @@ $(BUILD_OBJ)/%.o: $(SRC_DIR)/%.c | $(BUILD_INCLUDES)
 
 #❖═════Creat═════❖
 $(NAME): $(DEPENDENCIES_RULES) $(OBJ)
-	${AR} $(LIBRARY) ${OBJ} $(LIBRARYS) minilibx-linux/libmlx.a
-	${LIB} $(LIBRARY)
-	$(CC) $(SRC_EXEMPLE) $(OBJ) -o $(NAME_OUT) $(CFLAG) $(LIBRARYS) minilibx-linux/libmlx.a $(LIBRARY) $(LDFLAGS)
+	@${AR} $(LIBRARY) ${OBJ} $(LIBRARYS) minilibx-linux/libmlx.a
+	@${LIB} $(LIBRARY)
+	@$(CC) $(SRC_EXEMPLE) $(OBJ) -o $(NAME_OUT) $(CFLAG) $(LIBRARYS) minilibx-linux/libmlx.a $(LIBRARY) $(LDFLAGS)
 
 $(BUILD_INCLUDES):
 	mkdir -p $(BUILD_DIR);

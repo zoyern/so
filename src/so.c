@@ -53,6 +53,7 @@ int	so_start(t_solib *solib, void *data, t_sosize *size, t_sofuncs *funcs)
 	if (funcs->sostart)
 		funcs->sostart(solib->so, data);
 	solib->so->loop = 1;
+	mlx_do_sync(solib->so->mlx);
 	mlx_loop_hook(solib->so->mlx, so_update, solib->so);
 	mlx_loop(solib->so->mlx);
 	so_quit(solib->so);
@@ -92,6 +93,7 @@ t_solib	*so(t_solib *solib, char *name)
 		solib->close(solib, EXIT_FAILURE);
 	so->print = solib->print;
 	so->grid = NULL;
+	so->colliders = NULL;
 	if (soimgnew_memory(so))
 		return (NULL);
 	so->malloc = so_malloc;
